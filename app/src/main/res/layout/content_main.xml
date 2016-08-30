@@ -14,12 +14,13 @@
 
 
     <TextView
-        android:textSize="25dp"
-
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="30sp"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-     android:background="@color/textArea"
+
 
         android:id="@+id/display"
    android:gravity="center|end"
@@ -30,17 +31,19 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:textSize="25dp"
-        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="30sp"
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:background="@color/textArea"
+
         android:id="@+id/formula"
         android:gravity="center|start"
         android:layout_below="@+id/display"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
     <LinearLayout
         android:id="@+id/row1"
         android:orientation="horizontal"
@@ -49,45 +52,57 @@
         android:layout_height="wrap_content">
 
     <Button
+        android:background="@drawable/ripple_effects"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:textColor="@color/white"
-        android:theme="@style/MyButton"
+
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:textSize="@dimen/text_size"
+        android:layout_height="wrap_content"
         android:text="1"
         android:id="@+id/button1"
     />
 
     <Button
+        android:background="@drawable/ripple_effects"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="@dimen/text_size"
         android:textColor="@color/white"
-        android:theme="@style/MyButton"
+
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:text="2"
         android:id="@+id/button2"
    />
 
     <Button
+        android:background="@drawable/ripple_effects"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="@dimen/text_size"
         android:textColor="@color/white"
-        android:theme="@style/MyButton"
+
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:text="3"
         android:id="@+id/button3"
       />
 
     <Button
+        android:background="@drawable/ripple_number"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="@dimen/text_size"
         android:textColor="@color/white"
-        android:theme="@style/MyButton"
+
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:text="*"
         android:id="@+id/btnMultiply"
       />
@@ -102,47 +117,60 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="4"
             android:id="@+id/button4"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="5"
             android:id="@+id/button5"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="6"
             android:id="@+id/button6"
             />
 
         <Button
+
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="/"
             android:id="@+id/btnDivide"
+            android:background="@drawable/ripple_number"
+            style="@style/Widget.AppCompat.Button.Colored"
             />
 
     </LinearLayout>
@@ -154,47 +182,59 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="7"
             android:id="@+id/button7"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="8"
             android:id="@+id/button8"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="9"
             android:id="@+id/button9"
             />
 
         <Button
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="+"
             android:id="@+id/btnPlus"
+            android:background="@drawable/ripple_number"
+            style="@style/Widget.AppCompat.Button.Colored"
             />
 
     </LinearLayout>
@@ -206,34 +246,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="+/-"
+            android:layout_height="wrap_content"
+            android:text="±"
             android:id="@+id/posNeg"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="0"
             android:id="@+id/button0"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="."
             android:id="@+id/btnPoint"
             />
@@ -241,14 +290,17 @@
 
 
         <Button
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="-"
             android:id="@+id/btnMinus"
+            android:background="@drawable/ripple_number"
+            style="@style/Widget.AppCompat.Button.Colored"
             />
 
     </LinearLayout>
@@ -259,51 +311,52 @@
         android:layout_below="@+id/row4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
+            android:layout_margin="0dp"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="√"
+            android:id="@+id/btnSqrt"
+            />
+        <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="("
             android:id="@+id/bntOpen"
             />
 
         <Button
+            android:background="@drawable/ripple_number"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text=")"
             android:id="@+id/btnClose"
             />
 
-        <Button
-            android:textColor="@color/white"
-            android:theme="@style/MyButton"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="^"
-            android:id="@+id/btnPower"
-            />
 
 
 
-        <Button
-            android:textColor="@color/white"
-            android:theme="@style/MyButton"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="sqrt"
-            android:id="@+id/btnSqrt"
-            />
+
 
     </LinearLayout>
     <LinearLayout
@@ -313,59 +366,102 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="sin"
             android:id="@+id/bntSin"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="cos"
             android:id="@+id/btnCos"
             />
 
         <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="tan"
             android:id="@+id/btnTan"
             />
         <Button
+            android:background="@drawable/ripple_number"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-            android:theme="@style/MyButton"
+
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:text="^"
+            android:id="@+id/btnPower"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/row7"
+        android:orientation="horizontal"
+        android:layout_below="@+id/row6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+
+            android:layout_margin="0dp"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:text="clear"
+            android:id="@+id/bntCancel"
+            />
+
+
+
+        <Button
+
+
+            android:background="@drawable/ripple_number"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+
             android:text="="
             android:id="@+id/btnEqual"
             />
 
-        <Button
-            android:textColor="@color/white"
-            android:theme="@style/MyButton"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="c"
-            android:id="@+id/bntCancel"
-            />
 
     </LinearLayout>
+
 
 </RelativeLayout>

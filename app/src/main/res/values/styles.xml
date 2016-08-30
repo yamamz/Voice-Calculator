@@ -15,7 +15,7 @@
 
     <style name="MyButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/colorAccent</item>
-        <item name="colorButtonNormal">@color/btnColor</item>
+        <item name="colorButtonNormal">@color/NumberColor</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

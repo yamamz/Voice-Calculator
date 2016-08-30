@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -44,14 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private  TextView displayText;
     private  TextView formulaText;
 
+
     double plusminus;
 
-
-    int plusClick;
-    int minusClick;
-    int multiplyClick;
-    int devideClick;
-    int decimalClick;
 
     static boolean btn1Click=false;
     static boolean btn2Click=false;
@@ -65,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
     static boolean btn0Click=false;
     static boolean btnPointClick=false;
     static boolean podNegClick=false;
+    static boolean btnSqrtClick=false;
+    static boolean btnTanClick=false;
+    static boolean btnCosClick=false;
+    static boolean btnSinClick=false;
+    static boolean btnPowerClick=false;
+    static boolean btnOpenClick=false;
+    static boolean btnCloseClick=false;
+    static boolean btnPlusClick=false;
+    static boolean btnMinusClick=false;
+    static boolean btnMultiplyClick=false;
+    static boolean btnDivideClick=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,27 +132,31 @@ excuteButtonClick();
             btnOpen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    podNegClick=true;
-                    try {
+
+                        podNegClick = true;
+
+                        try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnOpen.getText()+" ");
-                        }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnOpen.getText()+" ");
-                        }
+                            if (formulaText.getText().equals("")) {
+                                formulaText.setText(displayText.getText() + " " + btnOpen.getText() + " ");
+                            } else {
+                                formulaText.setText(formulaText.getText() + " " + btnOpen.getText() + " ");
+                            }
+                        } catch (Exception e) {
+                            //This catch block catches all the exceptions
+                        }        // TODO add your handling code here:
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }        // TODO add your handling code here:
-                }
+
+
             });
 
             btnClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    podNegClick=true;
+
+                        podNegClick=true;
+
                     try {
 
 
@@ -157,78 +168,91 @@ excuteButtonClick();
                         }
                     }
                     catch(Exception e){
+
+                        Toast.makeText(MainActivity.this, "Syntax Error",
+                                Toast.LENGTH_LONG).show();
                         //This catch block catches all the exceptions
-                    }        // TODO add your handling code here:
-                }
+                          // TODO add your handling code here:
+                }}
             });
             btnSin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(btnSinClick==false){
+
                     setfalseButton();
                     podNegClick=true;
                     try {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnSin.getText()+" ");
+                            formulaText.setText(displayText.getText()+" "+btnSin.getText()+"(");
                         }
                         else{
-                            formulaText.setText(formulaText.getText()+" "+btnSin.getText()+" ");
+                            formulaText.setText(formulaText.getText()+" "+btnSin.getText()+"(");
                         }
                     }
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here:
-                }
+                }}
             });
 
             btnCos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
+                    if(btnCosClick==false){
+                        setfalseButton();
+                        podNegClick=true;
+
+
                     try {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnCos.getText()+" ");
+                            formulaText.setText(displayText.getText()+" "+btnCos.getText()+"(");
                         }
                         else{
-                            formulaText.setText(formulaText.getText()+" "+btnCos.getText()+" ");
+                            formulaText.setText(formulaText.getText()+" "+btnCos.getText()+"(");
                         }
                     }
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here:
-                }
+                }}
             });
 
             btnTan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
+
+                    if(btnTanClick==false){
+                        setfalseButton();
+                        podNegClick=true;
+
                     try {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnTan.getText()+" ");
+                            formulaText.setText(displayText.getText()+" "+btnTan.getText()+"(");
                         }
                         else{
-                            formulaText.setText(formulaText.getText()+" "+btnTan.getText()+" ");
+                            formulaText.setText(formulaText.getText()+" "+btnTan.getText()+"(");
                         }
                     }
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here:
-                }
+                }}
             });
 
             btnPower.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
+                    if(btnPowerClick==false){
+                        setfalseButton();
+                        podNegClick=true;
+
                     try {
 
 
@@ -242,7 +266,7 @@ excuteButtonClick();
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here
-                }
+                }}
             });
             btn1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -252,6 +276,9 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn1.getText());
                         formulaText.setText(formulaText.getText()+""+btn1.getText());
+
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -271,6 +298,9 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn2.getText());
                         formulaText.setText(formulaText.getText()+""+btn2.getText());
+
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -283,15 +313,15 @@ excuteButtonClick();
                 @Override
                 public void onClick(View v) {
 
-                    if (decimalClick == 0 && btnPointClick == false) {
+                    if (btnPointClick == false) {
                         if (displayText.getText().equals("")) {
                             displayText.setText("0" + btnPoint.getText());
                             formulaText.setText("0" + btnPoint.getText());
-                            decimalClick = 1;
+                            btnPointClick=true;
                         } else {
                             displayText.setText(displayText.getText() + "" + btnPoint.getText());
                             formulaText.setText(formulaText.getText() + "" + btnPoint.getText());
-                            decimalClick = 1;
+                            btnPointClick=true;
                         }
                     }                 // TODO add your handling code here:
 
@@ -305,7 +335,11 @@ excuteButtonClick();
                     setfalseButton();
                     displayText.setText("");
                     formulaText.setText("");
-                    decimalClick=0;
+
+
+
+                    mdasClickfalse();
+                    setFalseBtnTrigonometry();
                 }
             });
 
@@ -315,6 +349,8 @@ excuteButtonClick();
                 public void onClick(View v) {
 
                     if(btn3Click==false){
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
 
                         displayText.setText(displayText.getText()+""+btn3.getText());
                         formulaText.setText(formulaText.getText()+""+btn3.getText());
@@ -337,6 +373,8 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn4.getText());
                         formulaText.setText(formulaText.getText()+""+btn4.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -356,6 +394,8 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn5.getText());
                         formulaText.setText(formulaText.getText()+""+btn5.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -375,6 +415,8 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn6.getText());
                         formulaText.setText(formulaText.getText()+""+btn6.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -394,6 +436,8 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn7.getText());
                         formulaText.setText(formulaText.getText()+""+btn7.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -413,6 +457,8 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn8.getText());
                         formulaText.setText(formulaText.getText()+""+btn8.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -432,6 +478,8 @@ excuteButtonClick();
 
                         displayText.setText(displayText.getText()+""+btn9.getText());
                         formulaText.setText(formulaText.getText()+""+btn9.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -447,10 +495,12 @@ excuteButtonClick();
                 @Override
                 public void onClick(View v) {
 
-                    if(btn0Click==false){
+                    if(!btn0Click){
 
                         displayText.setText(displayText.getText()+""+btn0.getText());
                         formulaText.setText(formulaText.getText()+""+btn0.getText());
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
                     }
 
 
@@ -464,96 +514,103 @@ excuteButtonClick();
             btnPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
-                    try {
+
+                    if (btnPlusClick == false) {
+                        btnPlusClick = true;
+                        btnPointClick = false;
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnPlus.getText()+" ");
+                            if (formulaText.getText().equals("")) {
+                                formulaText.setText(displayText.getText() + " " + btnPlus.getText() + " ");
+                            } else {
+                                formulaText.setText(formulaText.getText() + " " + btnPlus.getText() + " ");
+                            }
+                        } catch (Exception e) {
+                            //This catch block catches all the exceptions
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnPlus.getText()+" ");
-                        }
+                        displayText.setText("");
+
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }
-                    displayText.setText("");
-                    plusClick=1;
-                    decimalClick=0;
                 }
             });
 
             btnMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
-                    try {
+
+                    if (btnPlusClick == false) {
+                        btnPlusClick = true;
+                        btnPointClick = false;
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnMinus.getText()+" ");
+                            if (formulaText.getText().equals("")) {
+                                formulaText.setText(displayText.getText() + " " + btnMinus.getText() + " ");
+                            } else {
+                                formulaText.setText(formulaText.getText() + " " + btnMinus.getText() + " ");
+                            }
+                        } catch (Exception e) {
+                            //This catch block catches all the exceptions
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnMinus.getText()+" ");
-                        }
+                        displayText.setText("");
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }
-                    displayText.setText("");
-                    plusClick=1;
-                    decimalClick=0;
                 }
             });
 
             btnDivide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
-                    try {
+                    if (btnPlusClick == false) {
+                        btnPlusClick = true;
+                        btnPointClick = false;
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnDivide.getText()+" ");
+                            if (formulaText.getText().equals("")) {
+                                formulaText.setText(displayText.getText() + " " + btnDivide.getText() + " ");
+                            } else {
+                                formulaText.setText(formulaText.getText() + " " + btnDivide.getText() + " ");
+                            }
+                        } catch (Exception e) {
+                            //This catch block catches all the exceptions
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnDivide.getText()+" ");
-                        }
+                        displayText.setText("");
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }
-                    displayText.setText("");
-                    plusClick=1;
-                    decimalClick=0;
                 }
             });
 
             btnMultiply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick=true;
-                    try {
+                    if (btnPlusClick == false) {
+                        btnPlusClick = true;
+                        btnPointClick = false;
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnMultiply.getText()+" ");
+                            if (formulaText.getText().equals("")) {
+                                formulaText.setText(displayText.getText() + " " + btnMultiply.getText() + " ");
+                            } else {
+                                formulaText.setText(formulaText.getText() + " " + btnMultiply.getText() + " ");
+                            }
+                        } catch (Exception e) {
+                            //This catch block catches all the exceptions
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnMultiply.getText()+" ");
-                        }
+                        displayText.setText("");
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }
-                    displayText.setText("");
-                    plusClick=1;
-                    decimalClick=0;
                 }
             });
 
@@ -575,6 +632,7 @@ excuteButtonClick();
                 @Override
                 public void onClick(View v) {
                     setTrueButton();
+                    mdasClickfalse();
                     podNegClick=false;
                     try{
 
@@ -592,7 +650,11 @@ excuteButtonClick();
                         formulaText.setText(displayText.getText());
                     }
                     catch (Exception e){
+                        setTrueBtnTrigonometry();
+                        mdasClickTrue();
 
+                        Toast.makeText(MainActivity.this, "Syntax Error",
+                                Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -603,20 +665,22 @@ excuteButtonClick();
             btnsqrt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setfalseButton();
-                    podNegClick = true;
-                    try {
+                    if (btnSqrtClick == false) {
+
+                        setfalseButton();
+                        podNegClick = true;
+                        try {
 
 
-                        if (formulaText.getText().equals("")) {
-                            formulaText.setText(displayText.getText() + " " + btnsqrt.getText() + " ");
-                        } else {
-                            formulaText.setText(formulaText.getText() + " " + btnsqrt.getText() + " ");
+                            if (formulaText.getText().equals("")) {
+                                formulaText.setText(displayText.getText() + " " + btnsqrt.getText() + " ");
+                            } else {
+                                formulaText.setText(formulaText.getText() + " " + btnsqrt.getText() + " ");
+                            }
+                        } catch (Exception e) {
+
+
                         }
-                    }
-                    catch (Exception e){
-
-
                     }
                 }
             });
@@ -629,7 +693,46 @@ excuteButtonClick();
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    public void mdasClickTrue(){
+        btnCloseClick=true;
+        btnPlusClick=true;
+        btnMinusClick=true;
+        btnMultiplyClick=true;
+        btnDivideClick=true;
 
+
+    }
+
+    public void mdasClickfalse(){
+        btnCloseClick=true;
+        btnPlusClick=false;
+        btnMinusClick=false;
+        btnMultiplyClick=false;
+        btnDivideClick=false;
+
+
+    }
+    public void setTrueBtnTrigonometry(){
+
+        btnSqrtClick=true;
+        btnTanClick=true;
+        btnCosClick=true;
+        btnSinClick=true;
+        btnPowerClick=true;
+
+
+
+    }
+    public void setFalseBtnTrigonometry(){
+
+        btnSqrtClick=false;
+        btnTanClick=false;
+        btnCosClick=false;
+        btnSinClick=false;
+        btnPowerClick=false;
+
+
+    }
     public void setfalseButton(){
 
         btn1Click=false;
@@ -742,7 +845,7 @@ excuteButtonClick();
                     while (ch >= 'a' && ch <= 'z') nextChar();
                     String func = str.substring(startPos, this.pos);
                     x = parseFactor();
-                    if (func.equals("sqrt")) x = Math.sqrt(x);
+                    if (func.equals("√")) x = Math.sqrt(x);
                     else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
                     else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
                     else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
