@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPower;
     private Button btnOpen;
     private Button btnClose;
+    private Button btnFact;
+    private Button btnMod;
+    private Button btnLog;
+    private Button btnSqr;
+    private Button  btnPI;
 
     private  TextView displayText;
     private  TextView formulaText;
@@ -106,6 +111,12 @@ displayText=(TextView) findViewById(R.id.display);
        formulaText=(TextView) findViewById(R.id.formula);
         btnOpen= (Button)  findViewById(R.id.bntOpen);
         btnClose= (Button)  findViewById(R.id.btnClose);
+        btnFact=(Button) findViewById(R.id.btnFactorial);
+        btnMod=(Button) findViewById(R.id.btnMod);
+        btnLog=(Button) findViewById(R.id.bntLog);
+        btnPI=(Button) findViewById(R.id.btnPI);
+        btnSqr=(Button) findViewById(R.id.btnSquared);
+
 
 //
 
@@ -129,6 +140,93 @@ excuteButtonClick();
     private Runnable ButtonClick = new Runnable() {
         public void run() {
 
+
+            btnLog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    setfalseButton();
+                    podNegClick=true;
+                    try {
+
+
+                        if(formulaText.getText().equals("")){
+                            formulaText.setText(btnLog.getText()+"("+displayText.getText());
+                        }
+                        else{
+                            formulaText.setText(formulaText.getText()+" "+btnLog.getText()+"(");
+                        }
+                    }
+                    catch(Exception e){
+                        //This catch block catches all the exceptions
+                    }
+
+                }
+            });
+btnMod.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        setfalseButton();
+        podNegClick=true;
+        if(!formulaText.getText().equals("")){
+
+           formulaText.setText(formulaText.getText()+" % ");
+        }
+
+
+    }
+});
+
+            btnPI.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    double PI;
+                    setTrueButton();
+                    podNegClick=true;
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                    PI=Math.PI;
+                    formulaText.setText(formulaText.getText()+String.valueOf(PI));
+                }
+            });
+            btnSqr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(formulaText.getText().equals("")){
+
+                        formulaText.setText(displayText.getText()+"^2");
+
+                    }
+
+                    else{
+
+                        formulaText.setText(formulaText.getText()+"^2");
+                    }
+                    }
+
+            });
+
+            btnFact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    podNegClick = true;
+
+                    try {
+
+
+                        if (formulaText.getText().equals("")) {
+                            formulaText.setText(displayText.getText()+"" + btnFact.getText() + " ");
+                        } else {
+                            formulaText.setText(formulaText.getText() + "" + btnFact.getText() + " ");
+                        }
+                    } catch (Exception e) {
+                        //This catch block catches all the exceptions
+                    }
+
+                }
+            });
+
             btnOpen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -139,9 +237,9 @@ excuteButtonClick();
 
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnOpen.getText() + " ");
+                                formulaText.setText(displayText.getText() + " " + btnOpen.getText() + "");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnOpen.getText() + " ");
+                                formulaText.setText(formulaText.getText() + " " + btnOpen.getText() + "");
                             }
                         } catch (Exception e) {
                             //This catch block catches all the exceptions
@@ -161,10 +259,10 @@ excuteButtonClick();
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnClose.getText()+" ");
+                            formulaText.setText(displayText.getText()+""+btnClose.getText()+" ");
                         }
                         else{
-                            formulaText.setText(formulaText.getText()+" "+btnClose.getText()+" ");
+                            formulaText.setText(formulaText.getText()+""+btnClose.getText()+" ");
                         }
                     }
                     catch(Exception e){
@@ -249,7 +347,7 @@ excuteButtonClick();
             btnPower.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(btnPowerClick==false){
+
                         setfalseButton();
                         podNegClick=true;
 
@@ -266,7 +364,7 @@ excuteButtonClick();
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here
-                }}
+                }
             });
             btn1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -516,6 +614,7 @@ excuteButtonClick();
                 public void onClick(View v) {
 
                     if (btnPlusClick == false) {
+                        formulaText.setTextColor(getResources().getColor(R.color.btnColor));
                         btnPlusClick = true;
                         btnPointClick = false;
                         setFalseBtnTrigonometry();
@@ -543,6 +642,7 @@ excuteButtonClick();
                 public void onClick(View v) {
 
                     if (btnPlusClick == false) {
+                        formulaText.setTextColor(getResources().getColor(R.color.btnColor));
                         btnPlusClick = true;
                         btnPointClick = false;
                         setFalseBtnTrigonometry();
@@ -568,6 +668,7 @@ excuteButtonClick();
                 @Override
                 public void onClick(View v) {
                     if (btnPlusClick == false) {
+                        formulaText.setTextColor(getResources().getColor(R.color.btnColor));
                         btnPlusClick = true;
                         btnPointClick = false;
                         setFalseBtnTrigonometry();
@@ -593,6 +694,7 @@ excuteButtonClick();
                 @Override
                 public void onClick(View v) {
                     if (btnPlusClick == false) {
+                        formulaText.setTextColor(getResources().getColor(R.color.btnColor));
                         btnPlusClick = true;
                         btnPointClick = false;
                         setFalseBtnTrigonometry();
@@ -618,6 +720,7 @@ excuteButtonClick();
             btnPosNeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    try {
                     plusminus=(Double.parseDouble(String.valueOf(displayText.getText())));
                     if(podNegClick==false){
                         plusminus=plusminus*(-1);
@@ -626,35 +729,44 @@ excuteButtonClick();
 
                     }// TODO add your handling code here:
                 }
+                catch (Exception e){
+
+                    Toast.makeText(MainActivity.this,"input number first",Toast.LENGTH_SHORT).show();
+                }
+
+                }
+
             });
 
             btnEquals.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setTrueButton();
-                    mdasClickfalse();
-                    podNegClick=false;
-                    try{
-
-                        double answer=eval(String.valueOf(formulaText.getText()));
 
 
+                        setTrueButton();
+                        mdasClickfalse();
+                        podNegClick = false;
+                        try {
 
-                        double roundAnswer = Math.round(answer*100.0)/100.0;
+                            double answer = eval(String.valueOf(formulaText.getText()));
 
 
-                        DecimalFormat df = new DecimalFormat("###.####");
+                            double roundAnswer = Math.round(answer * 10000.0) / 10000.0;
 
 
-                        displayText.setText(df.format(roundAnswer));
-                        formulaText.setText(displayText.getText());
-                    }
-                    catch (Exception e){
-                        setTrueBtnTrigonometry();
-                        mdasClickTrue();
+                            DecimalFormat df = new DecimalFormat("###.####");
 
-                        Toast.makeText(MainActivity.this, "Syntax Error",
-                                Toast.LENGTH_LONG).show();
+
+                            displayText.setText(df.format(roundAnswer));
+                            formulaText.setTextColor(getResources().getColor(R.color.colorPressMDAS));
+                            formulaText.setText(displayText.getText());
+
+                        } catch (Exception e) {
+                            setTrueBtnTrigonometry();
+                            mdasClickTrue();
+
+                            Toast.makeText(MainActivity.this, "Syntax Error",
+                                    Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -667,15 +779,15 @@ excuteButtonClick();
                 public void onClick(View v) {
                     if (btnSqrtClick == false) {
 
-                        setfalseButton();
-                        podNegClick = true;
-                        try {
 
+                        try {
+                            setfalseButton();
+                            podNegClick = true;
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnsqrt.getText() + " ");
+                                formulaText.setText(displayText.getText() + " " +"sqrt"+"(");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnsqrt.getText() + " ");
+                                formulaText.setText(formulaText.getText() + " " +"sqrt"+"(");
                             }
                         } catch (Exception e) {
 
@@ -844,20 +956,58 @@ excuteButtonClick();
                 } else if (ch >= 'a' && ch <= 'z') { // functions
                     while (ch >= 'a' && ch <= 'z') nextChar();
                     String func = str.substring(startPos, this.pos);
+
+                    Square square=new Square();
                     x = parseFactor();
-                    if (func.equals("√")) x = Math.sqrt(x);
+                    if (func.equals("sqrt")) x = Math.sqrt(x);
                     else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
                     else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
                     else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
+                    else if (func.equals("log")) x = Math.log(x);
+                    else if (func.equals("sqr")) x=square.Square(x);
+                    else if (func.equals("PI")) x=Math.PI;
+
+//
                     else throw new RuntimeException("Unknown function: " + func);
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch);
                 }
-
-                if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
-
+                Modulus modulus=new Modulus();
+                FactorialExample2 factorialExample2=new FactorialExample2();
+                if(eat('!')) x=factorialExample2.factorial(x);
+                if (eat('^')) x = Math.pow(x, parseFactor());
+                if(eat('%')) x= modulus.Modulus(x,parseFactor());
+                // exponentiation
                 return x;
             }
         }.parse();
     }
+
+    public static class Square{
+        public double Square(double x){
+
+            return x * x;
+
+        }
+
+    }
+public static class Modulus{
+    public double Modulus(double x, double y){
+
+        return x % y;
+
+    }
+
 }
+    public static class FactorialExample2{
+        public double factorial(double n){
+            if (n == 0)
+                return 1;
+            else
+                return(n * factorial(n-1));
+        }
+
+    }
+
+}
+
