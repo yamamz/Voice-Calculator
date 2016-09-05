@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">YamamzCalculator</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Calculator</string>
+    <string name="action_settings">Developer</string>
+    <string name="dialog_title">about</string>
+
+    <string name="dialog_message1">Developer:Raymundo T. Melecio
+                                   Address  : Corte-baud, Jetafe, Bohol
+                                   E-mail   : meleciort@gmail.com
+                                    </string>
+
 </resources>

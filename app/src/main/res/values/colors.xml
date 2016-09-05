@@ -7,10 +7,10 @@
     <color name="btnColor">#1E88E5</color>
     <color name="btnColorTap">#00BCD4</color>
     <color name="white">#ffffff</color>
-    <color name="MDASColor">#D500F9</color>
+    <color name="MDASColor">#0091EA</color>
     <color name="NumberColor">#00BCD4</color>
-    <color name="colorPressMDAS">#FF4081</color>
-    <color name="colorReleaseMDAS">#F06292</color>
+    <color name="colorPressMDAS">#40C4FF</color>
+    <color name="colorReleaseMDAS">#00B0FF</color>
     <color name="ColorTrigoButtonNormal">#69F0AE</color>
     <color name="ColorTrigoButtonPress">#B9F6CA</color>
     <color name="ColorGray">#263238</color>

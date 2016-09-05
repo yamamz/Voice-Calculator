@@ -262,6 +262,7 @@
         android:layout_height="wrap_content"
         android:text="1"
         android:id="@+id/button1"
+        android:padding="@dimen/textPadding"
     />
 
     <Button
@@ -276,6 +277,7 @@
         android:layout_height="wrap_content"
         android:text="2"
         android:id="@+id/button2"
+        android:padding="@dimen/textPadding"
    />
 
     <Button
@@ -290,6 +292,7 @@
         android:layout_height="wrap_content"
         android:text="3"
         android:id="@+id/button3"
+        android:padding="@dimen/textPadding"
       />
 
     <Button
@@ -302,8 +305,9 @@
         android:layout_weight="1.2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="*"
+        android:text="x"
         android:id="@+id/btnMultiply"
+        android:padding="@dimen/textPadding"
       />
 
     </LinearLayout>
@@ -327,6 +331,7 @@
             android:layout_height="wrap_content"
             android:text="4"
             android:id="@+id/button4"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -341,6 +346,7 @@
             android:layout_height="wrap_content"
             android:text="5"
             android:id="@+id/button5"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -355,6 +361,7 @@
             android:layout_height="wrap_content"
             android:text="6"
             android:id="@+id/button6"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -370,6 +377,7 @@
             android:id="@+id/btnDivide"
             android:background="@drawable/ripple_number"
             style="@style/Widget.AppCompat.Button.Colored"
+            android:padding="@dimen/textPadding"
             />
 
     </LinearLayout>
@@ -392,6 +400,7 @@
             android:layout_height="wrap_content"
             android:text="7"
             android:id="@+id/button7"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -406,6 +415,7 @@
             android:layout_height="wrap_content"
             android:text="8"
             android:id="@+id/button8"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -420,6 +430,7 @@
             android:layout_height="wrap_content"
             android:text="9"
             android:id="@+id/button9"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -434,6 +445,7 @@
             android:id="@+id/btnPlus"
             android:background="@drawable/ripple_number"
             style="@style/Widget.AppCompat.Button.Colored"
+            android:padding="@dimen/textPadding"
             />
 
     </LinearLayout>
@@ -456,6 +468,7 @@
             android:layout_height="wrap_content"
             android:text="±"
             android:id="@+id/posNeg"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -470,6 +483,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:id="@+id/button0"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -484,6 +498,7 @@
             android:layout_height="wrap_content"
             android:text="."
             android:id="@+id/btnPoint"
+            android:padding="@dimen/textPadding"
             />
 
 
@@ -500,6 +515,7 @@
             android:id="@+id/btnMinus"
             android:background="@drawable/ripple_number"
             style="@style/Widget.AppCompat.Button.Colored"
+            android:padding="@dimen/textPadding"
             />
 
     </LinearLayout>
@@ -516,17 +532,35 @@
         <Button
 
 
+        android:background="@drawable/ripple_effects"
+        android:textSize="@dimen/text_sizeOther"
+        android:textColor="@color/white"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_margin="0dp"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="answer"
+        android:id="@+id/btnEqual"
+            android:padding="@dimen/textPadding"
+        />
+
+        <Button
+
+
             android:background="@drawable/ripple_effects"
             android:textSize="@dimen/text_sizeOther"
             android:textColor="@color/white"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_margin="0dp"
-            android:layout_weight="6"
+            android:layout_weight="2"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
 
-            android:text="="
-            android:id="@+id/btnEqual"
+            android:text="del"
+            android:id="@+id/btnDelete"
+            android:padding="@dimen/textPadding"
             />
 
         <Button
@@ -538,9 +572,11 @@
             android:layout_margin="0dp"
             android:layout_weight="1.2"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:text="C"
             android:id="@+id/bntCancel"
+            android:padding="@dimen/textPadding"
+
             />
 
 

@@ -1,6 +1,8 @@
 package com.app.yamamz.yamamzcalculator;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -46,9 +48,12 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLog;
     private Button btnSqr;
     private Button  btnPI;
+    private Button btnDelete;
 
     private  TextView displayText;
     private  TextView formulaText;
+
+
 
 
     double plusminus;
@@ -86,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         btn1=(Button) findViewById(R.id.button1);
         btn2=(Button) findViewById(R.id.button2);
-    btn3=(Button) findViewById(R.id.button3);
-     btn4=(Button) findViewById(R.id.button4);
-       btn5=(Button) findViewById(R.id.button5);
+        btn3=(Button) findViewById(R.id.button3);
+         btn4=(Button) findViewById(R.id.button4);
+            btn5=(Button) findViewById(R.id.button5);
         btn6=(Button) findViewById(R.id.button6);
       btn7=(Button) findViewById(R.id.button7);
        btn8=(Button) findViewById(R.id.button8);
@@ -107,7 +112,7 @@ btnPlus=(Button) findViewById(R.id.btnPlus);
         btnSin=(Button) findViewById(R.id.bntSin);
       btnEquals=(Button) findViewById(R.id.btnEqual);
        btnPower=(Button) findViewById(R.id.btnPower);
-displayText=(TextView) findViewById(R.id.display);
+        displayText=(TextView) findViewById(R.id.display);
        formulaText=(TextView) findViewById(R.id.formula);
         btnOpen= (Button)  findViewById(R.id.bntOpen);
         btnClose= (Button)  findViewById(R.id.btnClose);
@@ -116,6 +121,7 @@ displayText=(TextView) findViewById(R.id.display);
         btnLog=(Button) findViewById(R.id.bntLog);
         btnPI=(Button) findViewById(R.id.btnPI);
         btnSqr=(Button) findViewById(R.id.btnSquared);
+        btnDelete=(Button) findViewById(R.id.btnDelete);
 
 
 //
@@ -124,7 +130,7 @@ displayText=(TextView) findViewById(R.id.display);
 
 
 
-excuteButtonClick();
+        excuteButtonClick();
 
 
 
@@ -141,6 +147,19 @@ excuteButtonClick();
         public void run() {
 
 
+      btnDelete.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            if(formulaText.getText().length()>0){
+                displayText.setText("");
+             formulaText.setText(deleteLastChar((String) formulaText.getText()));
+            }
+          }
+      });
+
+
+
             btnLog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -153,8 +172,12 @@ excuteButtonClick();
                         if(formulaText.getText().equals("")){
                             formulaText.setText(btnLog.getText()+"("+displayText.getText());
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnLog.getText()+"(");
+                        else if (btnPlusClick==false){
+                            formulaText.setText(formulaText.getText()+"x"+btnLog.getText()+"(");
+                        }
+
+                        else {
+                            formulaText.setText(formulaText.getText()+""+btnLog.getText()+"(");
                         }
                     }
                     catch(Exception e){
@@ -170,7 +193,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
         podNegClick=true;
         if(!formulaText.getText().equals("")){
 
-           formulaText.setText(formulaText.getText()+" % ");
+           formulaText.setText(formulaText.getText()+"%");
         }
 
 
@@ -181,12 +204,27 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     double PI;
-                    setTrueButton();
-                    podNegClick=true;
-                    mdasClickfalse();
-                    setTrueBtnTrigonometry();
-                    PI=Math.PI;
-                    formulaText.setText(formulaText.getText()+String.valueOf(PI));
+                    PI = Math.PI;
+                    if (btnPlusClick == true || btnMinusClick == true || btnMultiplyClick == true || btnDivideClick == true) {
+
+                        setTrueButton();
+                        podNegClick = true;
+                        mdasClickfalse();
+                        setTrueBtnTrigonometry();
+
+                        formulaText.setText(formulaText.getText() + String.valueOf(PI));
+                    }
+
+                    else if(formulaText.getText().equals("")){
+                        formulaText.setText(formulaText.getText() + String.valueOf(PI));
+
+                    }
+
+                    else {
+
+                        formulaText.setText(formulaText.getText()+ "x" + String.valueOf(PI));
+                    }
+
                 }
             });
             btnSqr.setOnClickListener(new View.OnClickListener() {
@@ -216,9 +254,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                         if (formulaText.getText().equals("")) {
-                            formulaText.setText(displayText.getText()+"" + btnFact.getText() + " ");
+                            formulaText.setText(displayText.getText()+"" + btnFact.getText() + "");
                         } else {
-                            formulaText.setText(formulaText.getText() + "" + btnFact.getText() + " ");
+                            formulaText.setText(formulaText.getText() + "" + btnFact.getText() + "");
                         }
                     } catch (Exception e) {
                         //This catch block catches all the exceptions
@@ -237,9 +275,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnOpen.getText() + "");
+                                formulaText.setText(displayText.getText() + "" + btnOpen.getText() + "");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnOpen.getText() + "");
+                                formulaText.setText(formulaText.getText() + "" + btnOpen.getText() + "");
                             }
                         } catch (Exception e) {
                             //This catch block catches all the exceptions
@@ -259,10 +297,10 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+""+btnClose.getText()+" ");
+                            formulaText.setText(displayText.getText()+""+btnClose.getText()+"");
                         }
                         else{
-                            formulaText.setText(formulaText.getText()+""+btnClose.getText()+" ");
+                            formulaText.setText(formulaText.getText()+""+btnClose.getText()+"");
                         }
                     }
                     catch(Exception e){
@@ -276,7 +314,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
             btnSin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(btnSinClick==false){
+
 
                     setfalseButton();
                     podNegClick=true;
@@ -284,64 +322,92 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnSin.getText()+"(");
+                            formulaText.setText(displayText.getText()+""+btnSin.getText()+"(");
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnSin.getText()+"(");
-                        }
+                        else if(btnPlusClick) {
+                                formulaText.setText(formulaText.getText() + "" + btnSin.getText() + "(");
+                            }
+                         else   if(!btnPlusClick){
+                                formulaText.setText(formulaText.getText() + "x" + btnSin.getText() + "(");
+                            }
+
+
                     }
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here:
-                }}
+
+
+                    }
+
+
+
+
+
             });
 
             btnCos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(btnCosClick==false){
-                        setfalseButton();
-                        podNegClick=true;
-
-
+                    setfalseButton();
+                    podNegClick=true;
                     try {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnCos.getText()+"(");
+                            formulaText.setText(displayText.getText()+""+btnCos.getText()+"(");
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnCos.getText()+"(");
+                        else if(btnPlusClick) {
+                            formulaText.setText(formulaText.getText() + "" + btnCos.getText() + "(");
                         }
+                        else   if(!btnPlusClick){
+                            formulaText.setText(formulaText.getText() + "x" + btnCos.getText() + "(");
+                        }
+
+
                     }
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here:
-                }}
+
+
+                }
+
+
+
+
             });
 
             btnTan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(btnTanClick==false){
-                        setfalseButton();
-                        podNegClick=true;
-
+                    setfalseButton();
+                    podNegClick=true;
                     try {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnTan.getText()+"(");
+                            formulaText.setText(displayText.getText()+""+btnTan.getText()+"(");
                         }
-                        else{
-                            formulaText.setText(formulaText.getText()+" "+btnTan.getText()+"(");
+                        else if(btnPlusClick) {
+                            formulaText.setText(formulaText.getText() + "" + btnTan.getText() + "(");
                         }
+                        else   if(!btnPlusClick){
+                            formulaText.setText(formulaText.getText() + "x" + btnTan.getText() + "(");
+                        }
+
+
                     }
                     catch(Exception e){
                         //This catch block catches all the exceptions
                     }          // TODO add your handling code here:
-                }}
+
+
+                }
+
+
+
             });
 
             btnPower.setOnClickListener(new View.OnClickListener() {
@@ -355,10 +421,10 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                         if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+" "+btnPower.getText()+" ");
+                            formulaText.setText(displayText.getText()+""+btnPower.getText()+"");
                         }
                         else{
-                            formulaText.setText(formulaText.getText()+" "+btnPower.getText()+" ");
+                            formulaText.setText(formulaText.getText()+""+btnPower.getText()+"");
                         }
                     }
                     catch(Exception e){
@@ -458,7 +524,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 }
 
 
-
+                
 
 
             });
@@ -624,9 +690,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnPlus.getText() + " ");
+                                formulaText.setText(displayText.getText() + "" + btnPlus.getText() + "");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnPlus.getText() + " ");
+                                formulaText.setText(formulaText.getText() + "" + btnPlus.getText() + "");
                             }
                         } catch (Exception e) {
                             //This catch block catches all the exceptions
@@ -652,9 +718,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnMinus.getText() + " ");
+                                formulaText.setText(displayText.getText() + "" + btnMinus.getText() + "");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnMinus.getText() + " ");
+                                formulaText.setText(formulaText.getText() + "" + btnMinus.getText() + "");
                             }
                         } catch (Exception e) {
                             //This catch block catches all the exceptions
@@ -678,9 +744,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnDivide.getText() + " ");
+                                formulaText.setText(displayText.getText() + "" + btnDivide.getText() + "");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnDivide.getText() + " ");
+                                formulaText.setText(formulaText.getText() + "" + btnDivide.getText() + "");
                             }
                         } catch (Exception e) {
                             //This catch block catches all the exceptions
@@ -704,9 +770,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " + btnMultiply.getText() + " ");
+                                formulaText.setText(displayText.getText() + "" + btnMultiply.getText() + "");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " + btnMultiply.getText() + " ");
+                                formulaText.setText(formulaText.getText() + "" + btnMultiply.getText() + "");
                             }
                         } catch (Exception e) {
                             //This catch block catches all the exceptions
@@ -745,6 +811,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
                         setTrueButton();
                         mdasClickfalse();
+
                         podNegClick = false;
                         try {
 
@@ -762,11 +829,14 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             formulaText.setText(displayText.getText());
 
                         } catch (Exception e) {
-                            setTrueBtnTrigonometry();
+                            formulaText.setText("");
+                            displayText.setText("");
+                            setFalseBtnTrigonometry();
                             mdasClickTrue();
+                            setfalseButton();
 
                             Toast.makeText(MainActivity.this, "Syntax Error",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -785,9 +855,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             podNegClick = true;
 
                             if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + " " +"sqrt"+"(");
+                                formulaText.setText(displayText.getText() + "" +"sqrt"+"(");
                             } else {
-                                formulaText.setText(formulaText.getText() + " " +"sqrt"+"(");
+                                formulaText.setText(formulaText.getText() + "" +"sqrt"+"(");
                             }
                         } catch (Exception e) {
 
@@ -886,6 +956,23 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
+            String positiveText = getString(android.R.string.ok);
+            builder.setTitle(getString(R.string.dialog_title));
+
+            builder.setMessage(getString(R.string.dialog_message1));
+
+
+            builder.setPositiveButton(positiveText,new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // positive button logic
+                } });
+
+            AlertDialog dialog = builder.create();
+// display dialog
+            dialog.show();
             return true;
         }
 
@@ -935,7 +1022,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
             double parseTerm() {
                 double x = parseFactor();
                 for (;;) {
-                    if      (eat('*')) x *= parseFactor(); // multiplication
+                    if      (eat('x')) x *= parseFactor(); // multiplication
                     else if (eat('/')) x /= parseFactor(); // division
                     else return x;
                 }
@@ -965,7 +1052,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                     else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
                     else if (func.equals("log")) x = Math.log(x);
                     else if (func.equals("sqr")) x=square.Square(x);
-                    else if (func.equals("PI")) x=Math.PI;
+     
 
 //
                     else throw new RuntimeException("Unknown function: " + func);
@@ -982,6 +1069,27 @@ btnMod.setOnClickListener(new View.OnClickListener() {
             }
         }.parse();
     }
+public  String deleteLastChar(String str) {
+    String word = str;
+    String last3Word;
+    try {
+        if (word.length() <= 4) {
+            last3Word = word;
+        } else{
+            last3Word = word.substring(word.length() - 4);
+        }
+
+        if (last3Word.contains("sin(") || last3Word.contains("cos(") || last3Word.contains("tan(") || last3Word.contains("mod(") || last3Word.contains("log(")) {
+            return str.substring(0, str.length() - 4);
+
+        } else {
+            return str.substring(0, str.length() - 1);
+        }
+    } catch (Exception e) {
+return word;
+    }
+}
+
 
     public static class Square{
         public double Square(double x){
