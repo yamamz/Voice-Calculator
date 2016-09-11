@@ -33,7 +33,7 @@
 
     <TextView
         android:fontFamily="sans-serif-condensed"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -533,7 +533,7 @@
 
 
         android:background="@drawable/ripple_effects"
-        android:textSize="@dimen/text_sizeOther"
+        android:textSize="@dimen/Equals"
         android:textColor="@color/white"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_margin="0dp"
@@ -543,14 +543,14 @@
 
         android:text="answer"
         android:id="@+id/btnEqual"
-            android:padding="@dimen/textPadding"
+            android:padding="@dimen/padingEquals"
         />
 
         <Button
 
 
             android:background="@drawable/ripple_effects"
-            android:textSize="@dimen/text_sizeOther"
+            android:textSize="@dimen/Equals"
             android:textColor="@color/white"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_margin="0dp"
@@ -560,13 +560,13 @@
 
             android:text="del"
             android:id="@+id/btnDelete"
-            android:padding="@dimen/textPadding"
+            android:padding="@dimen/padingEquals"
             />
 
         <Button
             android:background="@drawable/ripple_number"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:textSize="@dimen/text_sizeOther"
+            android:textSize="@dimen/Equals"
             android:textColor="@color/white"
 
             android:layout_margin="0dp"
@@ -575,7 +575,9 @@
             android:layout_height="wrap_content"
             android:text="C"
             android:id="@+id/bntCancel"
-            android:padding="@dimen/textPadding"
+
+            android:padding="@dimen/padingEquals"
+
 
             />
 
