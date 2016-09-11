@@ -17,6 +17,30 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
 
 
+    private static boolean btn1Click = false;
+    private static boolean btn2Click = false;
+    private static boolean btn3Click = false;
+    private static boolean btn4Click = false;
+    private static boolean btn5Click = false;
+    private static boolean btn6Click = false;
+    private static boolean btn7Click = false;
+    private static boolean btn8Click = false;
+    private static boolean btn9Click = false;
+    private static boolean btn0Click = false;
+    private static boolean btnPointClick = false;
+    private static boolean podNegClick = false;
+    private static boolean btnSqrtClick = false;
+    private static boolean btnTanClick = false;
+    private static boolean btnCosClick = false;
+    private static boolean btnSinClick = false;
+    private static boolean btnPowerClick = false;
+    private static boolean btnOpenClick = false;
+    private static boolean btnCloseClick = false;
+    private static boolean btnPlusClick = false;
+    private static boolean btnMinusClick = false;
+    private static boolean btnMultiplyClick = false;
+    private static boolean btnDivideClick = false;
+    double plusminus;
     //declare Button Variables
     private   Button btn1;
     private    Button btn2;
@@ -49,100 +73,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSqr;
     private Button  btnPI;
     private Button btnDelete;
-
     private  TextView displayText;
     private  TextView formulaText;
-
-
-
-
-    double plusminus;
-
-
-    private static boolean btn1Click=false;
-    private static boolean btn2Click=false;
-    private static boolean btn3Click=false;
-    private static boolean btn4Click=false;
-    private static boolean btn5Click=false;
-    private static boolean btn6Click=false;
-    private static boolean btn7Click=false;
-    private static boolean btn8Click=false;
-    private static boolean btn9Click=false;
-    private static boolean btn0Click=false;
-    private  static boolean btnPointClick=false;
-    private static boolean podNegClick=false;
-    private static boolean btnSqrtClick=false;
-    private static boolean btnTanClick=false;
-    private static boolean btnCosClick=false;
-    private static boolean btnSinClick=false;
-    private  static boolean btnPowerClick=false;
-    private  static boolean btnOpenClick=false;
-    private static boolean btnCloseClick=false;
-    private static boolean btnPlusClick=false;
-    private static boolean btnMinusClick=false;
-    private  static boolean btnMultiplyClick=false;
-    private static boolean btnDivideClick=false;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        btn1=(Button) findViewById(R.id.button1);
-        btn2=(Button) findViewById(R.id.button2);
-        btn3=(Button) findViewById(R.id.button3);
-         btn4=(Button) findViewById(R.id.button4);
-            btn5=(Button) findViewById(R.id.button5);
-        btn6=(Button) findViewById(R.id.button6);
-      btn7=(Button) findViewById(R.id.button7);
-       btn8=(Button) findViewById(R.id.button8);
-         btn9=(Button) findViewById(R.id.button9);
-         btn0=(Button) findViewById(R.id.button0);
-   btnsqrt=(Button) findViewById(R.id.btnSqrt);
-btnPlus=(Button) findViewById(R.id.btnPlus);
-        btnMinus=(Button) findViewById(R.id.btnMinus);
-        btnDivide=(Button) findViewById(R.id.btnDivide);
-       btnMultiply=(Button) findViewById(R.id.btnMultiply);
-       btnPoint=(Button) findViewById(R.id.btnPoint);
-       btnPosNeg=(Button) findViewById(R.id.posNeg);
-        btnCancel=(Button) findViewById(R.id.bntCancel);
-       btnTan=(Button) findViewById(R.id.btnTan);
-         btnCos=(Button) findViewById(R.id.btnCos);
-        btnSin=(Button) findViewById(R.id.bntSin);
-      btnEquals=(Button) findViewById(R.id.btnEqual);
-       btnPower=(Button) findViewById(R.id.btnPower);
-        displayText=(TextView) findViewById(R.id.display);
-       formulaText=(TextView) findViewById(R.id.formula);
-        btnOpen= (Button)  findViewById(R.id.bntOpen);
-        btnClose= (Button)  findViewById(R.id.btnClose);
-        btnFact=(Button) findViewById(R.id.btnFactorial);
-        btnMod=(Button) findViewById(R.id.btnMod);
-        btnLog=(Button) findViewById(R.id.bntLog);
-        btnPI=(Button) findViewById(R.id.btnPI);
-        btnSqr=(Button) findViewById(R.id.btnSquared);
-        btnDelete=(Button) findViewById(R.id.btnDelete);
-
-
-//
-
-
-
-
-
-        excuteButtonClick();
-
-
-
-
-    }
-
-    public void excuteButtonClick(){
-
-      this.runOnUiThread(ButtonClick);
-
-    }
-
     private Runnable ButtonClick = new Runnable() {
         public void run() {
 
@@ -436,7 +368,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(btn1Click==false){
+                    if (!btn1Click) {
 
                         displayText.setText(displayText.getText()+""+btn1.getText());
                         formulaText.setText(formulaText.getText()+""+btn1.getText());
@@ -458,7 +390,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(btn2Click==false){
+                    if (!btn2Click) {
 
                         displayText.setText(displayText.getText()+""+btn2.getText());
                         formulaText.setText(formulaText.getText()+""+btn2.getText());
@@ -477,7 +409,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (btnPointClick == false) {
+                    if (!btnPointClick) {
                         if (displayText.getText().equals("")) {
                             displayText.setText("0" + btnPoint.getText());
                             formulaText.setText("0" + btnPoint.getText());
@@ -524,7 +456,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 }
 
 
-                
+
 
 
             });
@@ -924,12 +856,160 @@ btnMod.setOnClickListener(new View.OnClickListener() {
         }
 
 };
+
+    public static double eval(final String str) {
+        return new Object() {
+            int pos = -1, ch;
+
+            void nextChar() {
+
+                ch = (++pos < str.length()) ? str.charAt(pos) : -1;
+            }
+
+            boolean eat(int charToEat) {
+                while (ch == ' ') nextChar();
+                if (ch == charToEat) {
+                    nextChar();
+                    return true;
+                }
+                return false;
+            }
+
+            double parse() {
+                nextChar();
+                double x = parseExpression();
+                if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char) ch);
+                return x;
+            }
+
+            // Grammar:
+            // expression = term | expression `+` term | expression `-` term
+            // term = factor | term `*` factor | term `/` factor
+            // factor = `+` factor | `-` factor | `(` expression `)`
+            //        | number | functionName factor | factor `^` factor
+
+            double parseExpression() {
+                double x = parseTerm();
+                for (; ; ) {
+                    if (eat('+')) x += parseTerm(); // addition
+                    else if (eat('-')) x -= parseTerm(); // subtraction
+                    else return x;
+                }
+            }
+
+            double parseTerm() {
+                double x = parseFactor();
+                for (; ; ) {
+                    if (eat('x')) x *= parseFactor(); // multiplication
+                    else if (eat('/')) x /= parseFactor(); // division
+                    else return x;
+                }
+            }
+
+            double parseFactor() {
+                if (eat('+')) return parseFactor(); // unary plus
+                if (eat('-')) return -parseFactor(); // unary minus
+
+                double x;
+                int startPos = this.pos;
+                if (eat('(')) { // parentheses
+                    x = parseExpression();
+                    eat(')');
+                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                    while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
+                    x = Double.parseDouble(str.substring(startPos, this.pos));
+                } else if (ch >= 'a' && ch <= 'z') { // functions
+                    while (ch >= 'a' && ch <= 'z') nextChar();
+                    String func = str.substring(startPos, this.pos);
+
+                    Square square = new Square();
+                    x = parseFactor();
+                    if (func.equals("sqrt")) x = Math.sqrt(x);
+                    else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
+                    else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
+                    else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
+                    else if (func.equals("log")) x = Math.log(x);
+                    else if (func.equals("sqr")) x = square.Square(x);
+
+
+//
+                    else throw new RuntimeException("Unknown function: " + func);
+                } else {
+                    throw new RuntimeException("Unexpected: " + (char) ch);
+                }
+                Modulus modulus = new Modulus();
+                FactorialExample2 factorialExample2 = new FactorialExample2();
+                if (eat('!')) x = factorialExample2.factorial(x);
+                if (eat('^')) x = Math.pow(x, parseFactor());
+                if (eat('%')) x = modulus.Modulus(x, parseFactor());
+                // exponentiation
+                return x;
+            }
+        }.parse();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        btn1 = (Button) findViewById(R.id.button1);
+        btn2 = (Button) findViewById(R.id.button2);
+        btn3 = (Button) findViewById(R.id.button3);
+        btn4 = (Button) findViewById(R.id.button4);
+        btn5 = (Button) findViewById(R.id.button5);
+        btn6 = (Button) findViewById(R.id.button6);
+        btn7 = (Button) findViewById(R.id.button7);
+        btn8 = (Button) findViewById(R.id.button8);
+        btn9 = (Button) findViewById(R.id.button9);
+        btn0 = (Button) findViewById(R.id.button0);
+        btnsqrt = (Button) findViewById(R.id.btnSqrt);
+        btnPlus = (Button) findViewById(R.id.btnPlus);
+        btnMinus = (Button) findViewById(R.id.btnMinus);
+        btnDivide = (Button) findViewById(R.id.btnDivide);
+        btnMultiply = (Button) findViewById(R.id.btnMultiply);
+        btnPoint = (Button) findViewById(R.id.btnPoint);
+        btnPosNeg = (Button) findViewById(R.id.posNeg);
+        btnCancel = (Button) findViewById(R.id.bntCancel);
+        btnTan = (Button) findViewById(R.id.btnTan);
+        btnCos = (Button) findViewById(R.id.btnCos);
+        btnSin = (Button) findViewById(R.id.bntSin);
+        btnEquals = (Button) findViewById(R.id.btnEqual);
+        btnPower = (Button) findViewById(R.id.btnPower);
+        displayText = (TextView) findViewById(R.id.display);
+        formulaText = (TextView) findViewById(R.id.formula);
+        btnOpen = (Button) findViewById(R.id.bntOpen);
+        btnClose = (Button) findViewById(R.id.btnClose);
+        btnFact = (Button) findViewById(R.id.btnFactorial);
+        btnMod = (Button) findViewById(R.id.btnMod);
+        btnLog = (Button) findViewById(R.id.bntLog);
+        btnPI = (Button) findViewById(R.id.btnPI);
+        btnSqr = (Button) findViewById(R.id.btnSquared);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
+
+
+//
+
+
+        excuteButtonClick();
+
+
+    }
+
+    public void excuteButtonClick() {
+
+        this.runOnUiThread(ButtonClick);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     public void mdasClickTrue(){
         btnCloseClick=true;
         btnPlusClick=true;
@@ -949,6 +1029,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
     }
+
     public void setTrueBtnTrigonometry(){
 
         btnSqrtClick=true;
@@ -960,6 +1041,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
     }
+
     public void setFalseBtnTrigonometry(){
 
         btnSqrtClick=false;
@@ -970,6 +1052,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
     }
+
     public void setfalseButton(){
 
         btn1Click=false;
@@ -1034,97 +1117,6 @@ btnMod.setOnClickListener(new View.OnClickListener() {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public static double eval(final String str) {
-        return new Object() {
-            int pos = -1, ch;
-
-            void nextChar() {
-
-                ch = (++pos < str.length()) ? str.charAt(pos) : -1;
-            }
-
-            boolean eat(int charToEat) {
-                while (ch == ' ') nextChar();
-                if (ch == charToEat) {
-                    nextChar();
-                    return true;
-                }
-                return false;
-            }
-
-            double parse() {
-                nextChar();
-                double x = parseExpression();
-                if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
-                return x;
-            }
-
-            // Grammar:
-            // expression = term | expression `+` term | expression `-` term
-            // term = factor | term `*` factor | term `/` factor
-            // factor = `+` factor | `-` factor | `(` expression `)`
-            //        | number | functionName factor | factor `^` factor
-
-            double parseExpression() {
-                double x = parseTerm();
-                for (;;) {
-                    if      (eat('+')) x += parseTerm(); // addition
-                    else if (eat('-')) x -= parseTerm(); // subtraction
-                    else return x;
-                }
-            }
-
-            double parseTerm() {
-                double x = parseFactor();
-                for (;;) {
-                    if      (eat('x')) x *= parseFactor(); // multiplication
-                    else if (eat('/')) x /= parseFactor(); // division
-                    else return x;
-                }
-            }
-
-            double parseFactor() {
-                if (eat('+')) return parseFactor(); // unary plus
-                if (eat('-')) return -parseFactor(); // unary minus
-
-                double x;
-                int startPos = this.pos;
-                if (eat('(')) { // parentheses
-                    x = parseExpression();
-                    eat(')');
-                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
-                    while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
-                    x = Double.parseDouble(str.substring(startPos, this.pos));
-                } else if (ch >= 'a' && ch <= 'z') { // functions
-                    while (ch >= 'a' && ch <= 'z') nextChar();
-                    String func = str.substring(startPos, this.pos);
-
-                    Square square=new Square();
-                    x = parseFactor();
-                    if (func.equals("sqrt")) x = Math.sqrt(x);
-                    else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
-                    else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
-                    else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
-                    else if (func.equals("log")) x = Math.log(x);
-                    else if (func.equals("sqr")) x=square.Square(x);
-     
-
-//
-                    else throw new RuntimeException("Unknown function: " + func);
-                } else {
-                    throw new RuntimeException("Unexpected: " + (char)ch);
-                }
-                Modulus modulus=new Modulus();
-                FactorialExample2 factorialExample2=new FactorialExample2();
-                if(eat('!')) x=factorialExample2.factorial(x);
-                if (eat('^')) x = Math.pow(x, parseFactor());
-                if(eat('%')) x= modulus.Modulus(x,parseFactor());
-                // exponentiation
-                return x;
-            }
-        }.parse();
-    }
 public  String deleteLastChar(String str) {
     String word = str;
     String last3Word;
