@@ -11,9 +11,9 @@
     <color name="NumberColor">#00BCD4</color>
     <color name="colorPressMDAS">#40C4FF</color>
     <color name="colorReleaseMDAS">#00B0FF</color>
-    <color name="ColorTrigoButtonNormal">#69F0AE</color>
-    <color name="ColorTrigoButtonPress">#B9F6CA</color>
-    <color name="ColorGray">#263238</color>
+    <color name="ColorTrigoButtonNormal">#00B8D4</color>
+    <color name="ColorTrigoButtonPress">#00E5FF</color>
+    <color name="ColorGray">#ffffff</color>
 
 
 

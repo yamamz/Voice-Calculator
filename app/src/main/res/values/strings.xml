@@ -7,5 +7,36 @@
                                    Address  : Corte-baud, Jetafe, Bohol
                                    E-mail   : meleciort@gmail.com
                                     </string>
+    <string name="mod">mod</string>
+    <string name="log">log</string>
+    <string name="pi">π</string>
+    <string name="squared">x²</string>
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="power">^</string>
+    <string name="squaroot">√</string>
+    <string name="factorial">!</string>
+    <string name="open">(</string>
+    <string name="close">)</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="multiplication">x</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="divide">/</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="plus">+</string>
+    <string name="changeSign">±</string>
+    <string name="_0">0</string>
+    <string name="point">.</string>
+    <string name="minus">-</string>
+    <string name="answer">answer</string>
+    <string name="del">del</string>
+    <string name="cancel">c</string>
 
 </resources>
