@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">Calculator</string>
+    <string name="app_name">Yamamz Calculator</string>
     <string name="action_settings">Developer</string>
     <string name="dialog_title">about</string>
 
-    <string name="dialog_message1">Developer:Raymundo T. Melecio
-                                   Address  : Corte-baud, Jetafe, Bohol
-                                   E-mail   : meleciort@gmail.com
+    <string name="dialog_message1">Created by Raymundo T. Melecio, program in Java language using android studio IDE.
                                     </string>
     <string name="mod">mod</string>
     <string name="log">log</string>

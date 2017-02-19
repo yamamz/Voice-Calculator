@@ -23,11 +23,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+		    android:layout_marginTop="20dp"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:fillViewport="false"
+		    >
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main"
+           />
     </ScrollView>
 
 

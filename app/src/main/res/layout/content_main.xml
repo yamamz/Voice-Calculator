@@ -14,19 +14,18 @@
 
 
     <TextView
+android:layout_marginBottom="20dp"
 
-    
         android:fontFamily="sans-serif-condensed"
         android:textSize="30sp"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:background="#fff3f3f3"
         android:textColor="#fff3f3f3"
-
-
         android:id="@+id/display"
-   android:gravity="center|end"
+        android:gravity="center|end"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -34,16 +33,16 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-     
+
         android:fontFamily="sans-serif-condensed"
         android:textSize="25sp"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/btnColor"
         android:id="@+id/formula"
-        android:text="@string/_0"
+        android:text=""
         android:gravity="center|end"
         android:layout_below="@+id/display"
         android:layout_alignParentLeft="true"
@@ -540,8 +539,8 @@
                 android:textColor="@color/white"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="answer"
                 android:id="@+id/btnEqual"
@@ -589,8 +588,8 @@
                 android:textColor="@color/white"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textOn="on"
                 android:text="voice"

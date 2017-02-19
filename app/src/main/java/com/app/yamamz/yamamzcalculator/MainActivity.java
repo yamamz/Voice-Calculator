@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     private static boolean btnDivideClick = false;
 
     private static boolean isPlay=true;
-    double plusminus;
+    private double plusminus;
     //declare Button Variables
     private   Button btn1;
     private    Button btn2;
@@ -134,8 +134,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         playPause1=(SwitchCompat)findViewById(R.id.toggleButton);
         if (playPause1 != null) {
             playPause1.setOnCheckedChangeListener(this);
+            playPause1.setChecked(true);
         }
-        playPause1.setChecked(true);
+
 
 
 
@@ -145,7 +146,7 @@ t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
     public void onInit(int status) {
 
         if(status != TextToSpeech.ERROR) {
-            t1.setLanguage(Locale.UK);
+            t1.setLanguage(Locale.US);
         }
 
     }
@@ -650,19 +651,8 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                     try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+""+btnPower.getText()+"");
-                            displayText.setText("");
-                            if(isPlay) {
-                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                                ttsGreater21("raise to the power of");
-                            }
-                            else{
-                                ttsUnder20("raise to the power of");
-                            }}
-                        }
-                        else if(last3Word.contains("1")||last3Word.contains("2")||last3Word.contains("3")||last3Word.contains("4")||last3Word.contains("5")||last3Word.contains("6")||last3Word.contains("7")||last3Word.contains("8")||last3Word.contains("9")||last3Word.contains("0")||last3Word.contains(")")){
+                       if(last3Word.contains("1")||last3Word.contains("2")||last3Word.contains("3")||last3Word.contains("4")||last3Word.contains("5")||last3Word.contains("6")||last3Word.contains("7")||last3Word.contains("8")||last3Word.contains("9")||last3Word.contains("0")||last3Word.contains(")")){
                             formulaText.setText(formulaText.getText()+""+btnPower.getText()+"");
                             displayText.setText("");
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
@@ -1282,10 +1272,10 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             double answer = eval(String.valueOf(formulaText.getText()));
 
 
-                            double roundAnswer = Math.round(answer * 10000.0) / 10000.0;
+                            double roundAnswer = Math.round(answer * 1000.0) / 1000.0;
 
 
-                            DecimalFormat df = new DecimalFormat("###.####");
+                            DecimalFormat df = new DecimalFormat("###.##");
 
 
                             displayText.setText(df.format(roundAnswer));
@@ -1573,14 +1563,13 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
     @SuppressWarnings("deprecation")
     private void ttsUnder20(String text){
-
         HashMap<String,String> map=new HashMap<>();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"MessageId");
         t1.speak(text,TextToSpeech.QUEUE_FLUSH,map);
     }
+
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 private void ttsGreater21(String text){
-
     String utteranceId=this.hashCode()+"";
     t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,utteranceId);
 }
