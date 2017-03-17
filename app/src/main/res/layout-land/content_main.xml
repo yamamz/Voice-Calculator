@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,46 +12,40 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.app.yamamz.yamamzcalculator.MainActivity"
     tools:showIn="@layout/activity_main">
+	
+	
+	<LinearLayout android:layout_width="match_parent"
+	              android:id="@+id/layout"
+	              android:orientation="vertical"
+	              android:layout_height="wrap_content"
+	android:layout_alignParentBottom="true">
+		
+		
+		<TextView
+			android:fontFamily="sans-serif-condensed"
+			android:textSize="25sp"
+			android:padding="10dp"
+			android:layout_width="match_parent"
+			
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/btnColor"
+			android:id="@+id/formula"
+			android:gravity="center|end"
+			android:layout_above="@+id/layout"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true" />
 
 
-    <TextView
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="30sp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#fff3f3f3"
 
-
-        android:id="@+id/display"
-   android:gravity="center|end"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="15sp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/btnColor"
-        android:id="@+id/formula"
-        android:gravity="center|end"
-        android:layout_below="@+id/display"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:id="@+id/rowSinCos"
         android:orientation="horizontal"
         android:layout_below="@+id/formula"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp">
         <Button
             android:background="@drawable/ripple_trigo"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -133,6 +128,22 @@
             android:text="!"
             android:id="@+id/btnFactorial"
             />
+	
+	    <android.support.v7.widget.SwitchCompat
+		    android:background="@drawable/ripple_trigo"
+		    android:textSize="@dimen/Equals"
+		    android:textColor="@color/white"
+		    style="@style/Widget.AppCompat.Button.Colored"
+		    android:layout_margin="0dp"
+		    android:layout_weight="1"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:textOn=""
+		    android:text="voice"
+		    android:textOff=""
+		    android:button="@null"
+		
+		    android:id="@+id/toggleButton"/>
 
     </LinearLayout>
 
@@ -141,7 +152,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/rowSinCos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp">
         <Button
             android:background="@drawable/ripple_trigo"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -224,6 +236,20 @@
             android:text=")"
             android:id="@+id/btnClose"
             />
+	    <Button
+		    android:background="@drawable/ripple_trigo"
+		    style="@style/Widget.AppCompat.Button.Colored"
+		    android:textSize="@dimen/text_sizeOther"
+		    android:textColor="@color/white"
+		
+		    android:layout_margin="0dp"
+		    android:layout_weight="1"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:text="C"
+		    android:id="@+id/bntCancel"
+		    
+	    />
 
 
     </LinearLayout>
@@ -248,7 +274,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/rowTrigo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
     <Button
         android:background="@drawable/ripple_effects"
@@ -353,7 +380,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/row1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
         <Button
             android:background="@drawable/ripple_effects"
@@ -454,7 +482,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/row2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
 
         <Button
@@ -527,7 +556,7 @@
             android:textColor="@color/white"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_margin="0dp"
-            android:layout_weight="0.68"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -538,21 +567,7 @@
 
 
 
-        <Button
-            android:background="@drawable/ripple_number"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:textSize="@dimen/text_sizeLand"
-            android:textColor="@color/white"
-
-            android:layout_margin="0dp"
-            android:layout_weight="0.66"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="C"
-            android:id="@+id/bntCancel"
-            android:padding="@dimen/textPadding"
-            />
-
+        
         <Button
 
 
@@ -561,7 +576,7 @@
             android:textColor="@color/white"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_margin="0dp"
-            android:layout_weight="0.66"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -575,30 +590,6 @@
     </LinearLayout>
 	
 	
-	<LinearLayout
-			android:id="@+id/rowPlay"
-			android:orientation="horizontal"
-			android:layout_below="@+id/row3"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-		<android.support.v7.widget.SwitchCompat
-				android:background="@drawable/ripple_effects"
-				android:textSize="@dimen/Equals"
-				android:textColor="@color/white"
-				style="@style/Widget.AppCompat.Button.Colored"
-				android:layout_margin="0dp"
-				android:layout_weight="3"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:textOn=""
-				android:text="voice"
-				android:textOff=""
-				android:button="@null"
-				android:padding="@dimen/padingEquals"
-				android:id="@+id/toggleButton"/>
 	
-	
-	</LinearLayout>
-
-
+</LinearLayout>
 </RelativeLayout>

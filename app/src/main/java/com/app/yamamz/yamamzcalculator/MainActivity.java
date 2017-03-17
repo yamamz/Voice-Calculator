@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     private static boolean btnMultiplyClick = false;
     private static boolean btnDivideClick = false;
 
+
+
     private static boolean isPlay=true;
     private double plusminus;
     //declare Button Variables
@@ -87,17 +89,55 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     private Button btnSqr;
     private Button  btnPI;
     private Button btnDelete;
-    private  TextView displayText;
+
     private  TextView formulaText;
     private TextToSpeech t1;
     private SwitchCompat playPause1;
+    private String StrToConcat="";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+//
+t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+    @Override
+    public void onInit(int status) {
+
+        if(status != TextToSpeech.ERROR) {
+            t1.setLanguage(Locale.US);
+            playPause1.setChecked(true);
+        }
+
+        else {
+            playPause1.setChecked(false);
+        }
+
+    }
+});
+
+        playPause1=(SwitchCompat)findViewById(R.id.toggleButton);
+        if (playPause1 != null) {
+            playPause1.setOnCheckedChangeListener(this);
+            playPause1.setChecked(true);
+        }
+
+
+        excuteButtonClick();
+
+
+    }
+
+    public void excuteButtonClick() {
+
         btn1 = (Button) findViewById(R.id.button1);
         btn2 = (Button) findViewById(R.id.button2);
         btn3 = (Button) findViewById(R.id.button3);
@@ -121,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         btnSin = (Button) findViewById(R.id.bntSin);
         btnEquals = (Button) findViewById(R.id.btnEqual);
         btnPower = (Button) findViewById(R.id.btnPower);
-        displayText = (TextView) findViewById(R.id.display);
         formulaText = (TextView) findViewById(R.id.formula);
         btnOpen = (Button) findViewById(R.id.bntOpen);
         btnClose = (Button) findViewById(R.id.btnClose);
@@ -131,83 +170,46 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         btnPI = (Button) findViewById(R.id.btnPI);
         btnSqr = (Button) findViewById(R.id.btnSquared);
         btnDelete = (Button) findViewById(R.id.btnDelete);
-        playPause1=(SwitchCompat)findViewById(R.id.toggleButton);
-        if (playPause1 != null) {
-            playPause1.setOnCheckedChangeListener(this);
-            playPause1.setChecked(true);
-        }
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
-
-//
-t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-    @Override
-    public void onInit(int status) {
-
-        if(status != TextToSpeech.ERROR) {
-            t1.setLanguage(Locale.US);
-        }
-
-    }
-});
-
-        excuteButtonClick();
-
-
-    }
-
-    public void excuteButtonClick() {
-
-        this.runOnUiThread(ButtonClick);
-
-    }
-
-    private Runnable ButtonClick = new Runnable() {
-        public void run() {
-
-
-
-
-      btnDelete.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-            if(formulaText.getText().length()>0){
-                displayText.setText("");
-             formulaText.setText(deleteLastChar((String) formulaText.getText()));
-                setfalseButton();
-            }
-          }
-      });
-
-
-
-            btnLog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
+                if(formulaText.getText().length()>0){
+                    //displayText.setText("");
+                    StrToConcat="";
+                    formulaText.setText(deleteLastChar((String) formulaText.getText()));
                     setfalseButton();
-                    podNegClick=true;
-                    try {
+                }
+            }
+        });
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(btnLog.getText()+"("+displayText.getText());
-                            if(isPlay) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-                                    ttsGreater21("logarithm of" + displayText.getText());
-                                } else {
-                                    ttsUnder20("logarithm of" + displayText.getText());
-                                }
+        btnLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                setfalseButton();
+                podNegClick=true;
+                try {
+                    if(formulaText.getText().equals("")){
+                        formulaText.setText(btnLog.getText()+"("+StrToConcat);
+                        if(isPlay) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                                ttsGreater21("logarithm of" + StrToConcat);
+                            } else {
+                                ttsUnder20("logarithm of" + StrToConcat);
                             }
+
                         }
-                        else if (!btnPlusClick){
-                            formulaText.setText(formulaText.getText()+"x"+btnLog.getText()+"(");
-                            displayText.setText("");
-                            if(isPlay) {
+                    }
+                    else if (!btnPlusClick){
+                        formulaText.setText(formulaText.getText()+"x"+btnLog.getText()+"(");
+                        //displayText.setText("");
+                        StrToConcat="";
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("times logarithm of");
@@ -215,11 +217,11 @@ t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             else{
                                 ttsUnder20("times logarithm of");
                             }}
-                        }
+                    }
 
-                        else {
-                            formulaText.setText(formulaText.getText()+""+btnLog.getText()+"(");
-                            if(isPlay) {
+                    else {
+                        formulaText.setText(formulaText.getText()+""+btnLog.getText()+"(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("logarithm of");
@@ -227,51 +229,52 @@ t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             else{
                                 ttsUnder20("logarithm of");
                             }}
-                        }
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }
-
                 }
-            });
-btnMod.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        setfalseButton();
-        podNegClick=true;
-        if(!formulaText.getText().equals("")){
+                catch(Exception e){
+                    //This catch block catches all the exceptions
+                }
 
-           formulaText.setText(formulaText.getText()+"%");
-            displayText.setText("");
-            if(isPlay) {
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                ttsGreater21("modulus of");
             }
-            else{
-                ttsUnder20("modulus of");
-            }}
-        }
+        });
+        btnMod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setfalseButton();
+                podNegClick=true;
+                if(!formulaText.getText().equals("")){
+
+                    formulaText.setText(formulaText.getText()+"%");
+                    StrToConcat="";
+                    // displayText.setText("");
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21("modulus of");
+                        }
+                        else{
+                            ttsUnder20("modulus of");
+                        }}
+                }
 
 
-    }
-});
+            }
+        });
 
-            btnPI.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    double PI;
-                    PI = Math.PI;
-                    if (btnPlusClick || btnMinusClick || btnMultiplyClick || btnDivideClick) {
+        btnPI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double PI;
+                PI = Math.PI;
+                if (btnPlusClick || btnMinusClick || btnMultiplyClick || btnDivideClick) {
 
-                        setTrueButton();
-                        podNegClick = true;
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
+                    setTrueButton();
+                    podNegClick = true;
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
 
-                        formulaText.setText(formulaText.getText() + String.valueOf(PI));
-                        if(isPlay) {
+                    formulaText.setText(formulaText.getText() + String.valueOf(PI));
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("pi");
@@ -279,11 +282,11 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                         else{
                             ttsUnder20("pi");
                         }}
-                    }
+                }
 
-                    else if(formulaText.getText().equals("")){
-                        formulaText.setText(formulaText.getText() + String.valueOf(PI));
-                        if(isPlay) {
+                else if(formulaText.getText().equals("")){
+                    formulaText.setText(formulaText.getText() + String.valueOf(PI));
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("pi");
@@ -291,13 +294,14 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                         else{
                             ttsUnder20("pi");
                         }}
-                    }
+                }
 
-                    else {
+                else {
 
-                        formulaText.setText(formulaText.getText()+ "x" + String.valueOf(PI));
-                        displayText.setText("");
-                        if(isPlay) {
+                    formulaText.setText(formulaText.getText()+ " x " + String.valueOf(PI));
+                    //  displayText.setText("");
+                    StrToConcat="";
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("times pi");
@@ -305,31 +309,31 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                         else{
                             ttsUnder20("times pi");
                         }}
-                    }
-
                 }
-            });
-            btnSqr.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(formulaText.getText().equals("")){
 
-                        formulaText.setText(displayText.getText()+"^2");
-                        if(isPlay) {
+            }
+        });
+        btnSqr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(formulaText.getText().equals("")){
+
+                    formulaText.setText(StrToConcat+"^2");
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                            ttsGreater21(displayText.getText()+"squared");
+                            ttsGreater21(StrToConcat+"squared");
                         }
                         else{
-                            ttsUnder20(displayText.getText()+"squared");
+                            ttsUnder20(StrToConcat+"squared");
                         }}
 
-                    }
+                }
 
-                    else{
+                else{
 
-                        formulaText.setText(formulaText.getText()+"^2");
-                        if(isPlay) {
+                    formulaText.setText(formulaText.getText()+"^2");
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("squared");
@@ -337,34 +341,35 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                         else{
                             ttsUnder20("squared");
                         }}
-                    }
-                    }
+                }
+            }
 
-            });
+        });
 
-            btnFact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btnFact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    podNegClick = true;
+                podNegClick = true;
 
-                    try {
+                try {
 
 
-                        if (formulaText.getText().equals("")) {
-                            formulaText.setText(displayText.getText()+"" + btnFact.getText() + "");
-                            if(isPlay) {
+                    if (formulaText.getText().equals("")) {
+                        formulaText.setText(StrToConcat+"" + btnFact.getText() + "");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                                ttsGreater21(displayText.getText()+"factorial");
+                                ttsGreater21(StrToConcat+"factorial");
                             }
                             else{
-                                ttsUnder20(displayText.getText()+"factorial");
+                                ttsUnder20(StrToConcat+"factorial");
                             }}
-                        } else {
-                            formulaText.setText(formulaText.getText() + "" + btnFact.getText() + "");
-                            displayText.setText("");
-                            if(isPlay) {
+                    } else {
+                        formulaText.setText(formulaText.getText() + "" + btnFact.getText() + "");
+                        StrToConcat="";
+                        // displayText.setText("");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("factorial");
@@ -372,67 +377,90 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("factorial");
                             }}
-                        }
-                    } catch (Exception e) {
-                        //This catch block catches all the exceptions
                     }
-
+                } catch (Exception e) {
+                    //This catch block catches all the exceptions
                 }
-            });
 
-            btnOpen.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            }
+        });
 
-                        podNegClick = true;
+        btnOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                char lastChar='y';
 
-                        try {
+                String formula=formulaText.getText().toString();
+                if (formula.length()!=0) {
+                    lastChar = formula.charAt(formula.length() - 1);
+                }
+                podNegClick = true;
+                try {
+
+                    if (formulaText.getText().equals("")) {
+                        formulaText.setText(StrToConcat + "" + btnOpen.getText() + "");
 
 
-                            if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + "" + btnOpen.getText() + "");
-                            } else {
-                                formulaText.setText(formulaText.getText() + "" + btnOpen.getText() + "");
+                    }
+
+                    else if(lastChar=='x'||lastChar=='+'|| lastChar=='÷'|| lastChar=='-'){
+
+                        formulaText.setText(formulaText.getText() + "" + btnOpen.getText() + "");
+
+                    }
+
+                    else {
+                        StrToConcat="";
+                        formulaText.setText(formulaText.getText() + "x" + btnOpen.getText
+                                () + "");
+                        setfalseButton();
+                        if(isPlay) {
+                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                                ttsGreater21("times");
                             }
-                        } catch (Exception e) {
-                            //This catch block catches all the exceptions
-                        }        // TODO add your handling code here:
+                            else{
+                                ttsUnder20("times");
+                            }}
                     }
+                } catch (Exception e) {
+                    //This catch block catches all the exceptions
+                }        // TODO add your handling code here:
+            }
 
 
-            });
+        });
 
-            btnClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                podNegClick=true;
 
-                        podNegClick=true;
-
-                    try {
+                try {
 
 
-                        if(formulaText.getText().equals("")){
-                            formulaText.setText(displayText.getText()+""+btnClose.getText()+"");
-                        }
-                        else{
-                            formulaText.setText(formulaText.getText()+""+btnClose.getText()+"");
-                        }
+                    if(formulaText.getText().equals("")){
+                        formulaText.setText(StrToConcat+""+btnClose.getText()+"");
                     }
-                    catch(Exception e){
+                    else{
+                        formulaText.setText(formulaText.getText()+""+btnClose.getText()+"");
+                    }
+                }
+                catch(Exception e){
 
-                        Toast.makeText(MainActivity.this, "Syntax Error",
-                                Toast.LENGTH_LONG).show();
-                        //This catch block catches all the exceptions
-                          // TODO add your handling code here:
+                    Toast.makeText(MainActivity.this, "Syntax Error",
+                            Toast.LENGTH_LONG).show();
+                    //This catch block catches all the exceptions
+                    // TODO add your handling code here:
                 }}
-            });
-            btnSin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        });
+        btnSin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    String word = formulaText.getText().toString();
-                    String lastChar;
-                    try {
+                String word = formulaText.getText().toString();
+                String lastChar;
+                try {
                     if (word.length() <= 1) {
                         lastChar = word;
                     } else{
@@ -444,9 +472,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
 
 
 
-                        if(lastChar.contains("x")||lastChar.contains("+")||lastChar.contains("/")||lastChar.contains("-")){
-                            formulaText.setText(formulaText.getText()+""+btnSin.getText()+"(");
-                            if(isPlay) {
+                    if(lastChar.contains("x")||lastChar.contains("+")||lastChar.contains("÷")||lastChar.contains("-")){
+                        formulaText.setText(formulaText.getText()+""+btnSin.getText()+"(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("sine");
@@ -454,10 +482,10 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("sine");
                             }}
-                        }
-                        else if(formulaText.getText().equals("")) {
-                                formulaText.setText(formulaText.getText() + "" + btnSin.getText() + "(");
-                            if(isPlay) {
+                    }
+                    else if(formulaText.getText().equals("")||lastChar.contains("(")) {
+                        formulaText.setText(formulaText.getText() + "" + btnSin.getText() + "(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("sine");
@@ -465,11 +493,12 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("sine");
                             }}
-                            }
-                         else if (lastChar.contains("1")||lastChar.contains("2")||lastChar.contains("3")||lastChar.contains("4")||lastChar.contains("5")||lastChar.contains("6")||lastChar.contains("7")||lastChar.contains("8")||lastChar.contains("9")||lastChar.contains("0")||lastChar.contains(")")){
-                                formulaText.setText(formulaText.getText() + "x" + btnSin.getText() + "(");
-                            displayText.setText("");
-                            if(isPlay) {
+                    }
+                    else if (lastChar.contains("1")||lastChar.contains("2")||lastChar.contains("3")||lastChar.contains("4")||lastChar.contains("5")||lastChar.contains("6")||lastChar.contains("7")||lastChar.contains("8")||lastChar.contains("9")||lastChar.contains("0")||lastChar.contains(")")){
+                        formulaText.setText(formulaText.getText() + "x" + btnSin.getText() + "(");
+                        StrToConcat="";
+                        // displayText.setText("");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("times sine");
@@ -477,43 +506,43 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("times sine");
                             }}
-                            }
-
-
-                    }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }          // TODO add your handling code here:
-
-
                     }
 
 
+                }
+                catch(Exception e){
+                    //This catch block catches all the exceptions
+                }          // TODO add your handling code here:
+
+
+            }
 
 
 
-            });
-
-            btnCos.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String word = formulaText.getText().toString();
-                    String lastChar;
-                    try {
-                        if (word.length() <= 1) {
-                            lastChar = word;
-                        } else{
-                            lastChar = word.substring(word.length() - 1);
-                        }
-
-                        setfalseButton();
-                        podNegClick=true;
 
 
+        });
 
-                        if(lastChar.contains("x")||lastChar.contains("+")||lastChar.contains("/")||lastChar.contains("-")){
-                            formulaText.setText(formulaText.getText()+""+btnCos.getText()+"(");
-                            if(isPlay) {
+        btnCos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String word = formulaText.getText().toString();
+                String lastChar;
+                try {
+                    if (word.length() <= 1) {
+                        lastChar = word;
+                    } else{
+                        lastChar = word.substring(word.length() - 1);
+                    }
+
+                    setfalseButton();
+                    podNegClick=true;
+
+
+
+                    if(lastChar.contains("x")||lastChar.contains("+")||lastChar.contains("÷")||lastChar.contains("-")){
+                        formulaText.setText(formulaText.getText()+""+btnCos.getText()+"(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("cosine");
@@ -521,10 +550,10 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("cosine");
                             }}
-                        }
-                        else if(formulaText.getText().equals("")) {
-                            formulaText.setText(formulaText.getText() + "" + btnCos.getText() + "(");
-                            if(isPlay) {
+                    }
+                    else if(formulaText.getText().equals("")) {
+                        formulaText.setText(formulaText.getText() + "" + btnCos.getText() + "(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("cosine");
@@ -532,12 +561,14 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("cosine");
                             }}
-                        }
-                        else if (lastChar.contains("1")||lastChar.contains("2")||lastChar.contains("3")||lastChar.contains("4")||lastChar.contains("5")||lastChar.contains("6")||lastChar.contains("7")||lastChar.contains("8")||lastChar.contains("9")||lastChar.contains("0")||lastChar.contains(")")){
+                    }
+                    else if (lastChar.contains("1")||lastChar.contains("2")||lastChar.contains("3")||lastChar.contains("4")||lastChar.contains("5")||lastChar.contains("6")||lastChar.contains("7")||lastChar.contains("8")||lastChar.contains("9")||lastChar.contains("0")||lastChar.contains(")")){
 
-                            formulaText.setText(formulaText.getText() + "x" + btnCos.getText() + "(");
-                            displayText.setText("");
-                            if(isPlay) {
+                        formulaText.setText(formulaText.getText() + "x" + btnCos.getText() + "(");
+                        StrToConcat="";
+
+                        //displayText.setText("");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("times cosine");
@@ -545,44 +576,41 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("times cosine");
                             }}
-                        }
-
-
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }          // TODO add your handling code here:
 
 
                 }
+                catch(Exception e){
+                    //This catch block catches all the exceptions
+                }          // TODO add your handling code here:
+
+
+            }
 
 
 
 
 
 
-            });
+        });
 
-            btnTan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String word = formulaText.getText().toString();
-                    String lastChar;
-                    try {
-                        if (word.length() <= 1) {
-                            lastChar = word;
-                        } else{
-                            lastChar = word.substring(word.length() - 1);
-                        }
+        btnTan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String word = formulaText.getText().toString();
+                String lastChar;
+                try {
+                    if (word.length() <= 1) {
+                        lastChar = word;
+                    } else{
+                        lastChar = word.substring(word.length() - 1);
+                    }
 
-                        setfalseButton();
-                        podNegClick=true;
-
-
-
-                        if(lastChar.contains("x")||lastChar.contains("+")||lastChar.contains("/")||lastChar.contains("-")){
-                            formulaText.setText(formulaText.getText()+""+btnTan.getText()+"(");
-                            if(isPlay) {
+                    setfalseButton();
+                    podNegClick=true;
+                    if(lastChar.contains("x")||lastChar.contains("+")||lastChar.contains("÷")||lastChar.contains("-")){
+                        formulaText.setText(formulaText.getText()+""+btnTan.getText()+"(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("tangent");
@@ -590,10 +618,10 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("tangent");
                             }}
-                        }
-                        else if(formulaText.getText().equals("")) {
-                            formulaText.setText(formulaText.getText() + "" + btnTan.getText() + "(");
-                            if(isPlay) {
+                    }
+                    else if(formulaText.getText().equals("")) {
+                        formulaText.setText(formulaText.getText() + "" + btnTan.getText() + "(");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("tangent");
@@ -602,11 +630,12 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                                 ttsUnder20("tangent");
                             }}
 
-                        }
-                        else if (lastChar.contains("1")||lastChar.contains("2")||lastChar.contains("3")||lastChar.contains("4")||lastChar.contains("5")||lastChar.contains("6")||lastChar.contains("7")||lastChar.contains("8")||lastChar.contains("9")||lastChar.contains("0")||lastChar.contains(")")){
-                            formulaText.setText(formulaText.getText() + "x" + btnTan.getText() + "(");
-                            displayText.setText("");
-                            if(isPlay) {
+                    }
+                    else if (lastChar.contains("1")||lastChar.contains("2")||lastChar.contains("3")||lastChar.contains("4")||lastChar.contains("5")||lastChar.contains("6")||lastChar.contains("7")||lastChar.contains("8")||lastChar.contains("9")||lastChar.contains("0")||lastChar.contains(")")){
+                        formulaText.setText(formulaText.getText() + "x" + btnTan.getText() + "(");
+                        StrToConcat="";
+                        // displayText.setText("");
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("times tangent");
@@ -615,129 +644,133 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                                 ttsUnder20("times tangent");
                             }}
 
-                        }
-
-
                     }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }          // TODO add your handling code here:
 
 
                 }
+                catch(Exception e){
+                    //This catch block catches all the exceptions
+                }          // TODO add your handling code here:
+
+
+            }
 
 
 
 
 
-            });
+        });
 
-            btnPower.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btnPower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    String word = formulaText.getText().toString();
-                    String last3Word;
+                String word = formulaText.getText().toString();
+                String last3Word;
 
-                    if (word.length() <= 1) {
-                        last3Word = word;
-                    } else{
-                        last3Word = word.substring(word.length() - 1);
-                    }
-
-                        setfalseButton();
-                        podNegClick=true;
-
-                    try {
-
-
-
-                       if(last3Word.contains("1")||last3Word.contains("2")||last3Word.contains("3")||last3Word.contains("4")||last3Word.contains("5")||last3Word.contains("6")||last3Word.contains("7")||last3Word.contains("8")||last3Word.contains("9")||last3Word.contains("0")||last3Word.contains(")")){
-                            formulaText.setText(formulaText.getText()+""+btnPower.getText()+"");
-                            displayText.setText("");
-                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                                ttsGreater21("raise to the power of");
-                            }
-                            else{
-                                ttsUnder20("raise to the power of");
-                            }
-                        }
-                    }
-                    catch(Exception e){
-                        //This catch block catches all the exceptions
-                    }          // TODO add your handling code here
+                if (word.length() <= 1) {
+                    last3Word = word;
+                } else{
+                    last3Word = word.substring(word.length() - 1);
                 }
-            });
-            btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    if (!btn1Click) {
+                setfalseButton();
+                podNegClick=true;
 
-                        displayText.setText(displayText.getText()+""+btn1.getText());
-                        if(isPlay) {
+                try {
+
+
+
+                    if(last3Word.contains("1")||last3Word.contains("2")||last3Word.contains("3")||last3Word.contains("4")||last3Word.contains("5")||last3Word.contains("6")||last3Word.contains("7")||last3Word.contains("8")||last3Word.contains("9")||last3Word.contains("0")||last3Word.contains(")")){
+                        formulaText.setText(formulaText.getText()+""+btnPower.getText()+"");
+                        StrToConcat="";
+
+                        //displayText.setText("");
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                            ttsGreater21(displayText.getText().toString());
+                            ttsGreater21("raise to the power of");
                         }
                         else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn1.getText());
-
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-
+                            ttsUnder20("raise to the power of");
+                        }
                     }
-
-
                 }
+                catch(Exception e){
+                    //This catch block catches all the exceptions
+                }          // TODO add your handling code here
+            }
+        });
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if (!btn1Click) {
 
-
-
-
-            });
-
-            btn2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (!btn2Click) {
-
-                        displayText.setText(displayText.getText()+""+btn2.getText());
-                        if(isPlay) {
+                    //  displayText.setText(displayText.getText()+""+btn1.getText());
+                    StrToConcat=StrToConcat + btn1.getText();
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                            ttsGreater21(displayText.getText().toString());
+                            ttsGreater21(StrToConcat);
                         }
                         else{
-                            ttsUnder20(displayText.getText().toString());
+                            ttsUnder20(StrToConcat);
                         }}
-                        formulaText.setText(formulaText.getText()+""+btn2.getText());
+                    formulaText.setText(formulaText.getText()+""+btn1.getText());
 
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
 
                 }
 
 
-            });
+            }
 
-            btnPoint.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    if (!btnPointClick) {
 
-                        if (displayText.getText().equals("")) {
-                            displayText.setText("0" + btnPoint.getText());
 
-                            formulaText.setText("0" + btnPoint.getText());
-                            if(isPlay) {
+
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!btn2Click) {
+
+                    //  displayText.setText(displayText.getText()+""+btn2.getText());
+                    StrToConcat=StrToConcat + btn2.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn2.getText());
+
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+        });
+
+        btnPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!btnPointClick) {
+
+                    if (StrToConcat.equals("")) {
+                        //  displayText.setText("0" + btnPoint.getText());
+                        StrToConcat="0" + btnPoint.getText();
+                        formulaText.setText("0" + btnPoint.getText());
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("zero point");
@@ -745,11 +778,12 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("zero point");
                             }}
-                            btnPointClick=true;
-                        } else {
+                        btnPointClick=true;
+                    } else {
 
-                            displayText.setText(displayText.getText() + "" + btnPoint.getText());
-                            if(isPlay) {
+                        // displayText.setText(displayText.getText() + "" + btnPoint.getText());
+                        StrToConcat=StrToConcat + btnPoint.getText();
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("point");
@@ -757,22 +791,23 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("point");
                             }}
-                            formulaText.setText(formulaText.getText() + "" + btnPoint.getText());
-                            btnPointClick=true;
-                        }
-                    }                 // TODO add your handling code here:
+                        formulaText.setText(formulaText.getText() + "" + btnPoint.getText());
+                        btnPointClick=true;
+                    }
+                }                 // TODO add your handling code here:
 
 
-                }
-            });
+            }
+        });
 
-            btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setfalseButton();
-                    displayText.setText("");
-                    formulaText.setText("");
-                    if(isPlay) {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setfalseButton();
+                // displayText.setText("");
+                StrToConcat="";
+                formulaText.setText("");
+                if(isPlay) {
                     if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                         ttsGreater21("clear");
@@ -782,258 +817,287 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                     }}
 
 
+                mdasClickfalse();
+                setFalseBtnTrigonometry();
+            }
+        });
+
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn3Click){
                     mdasClickfalse();
+                    setTrueBtnTrigonometry();
+
+                    //displayText.setText(displayText.getText()+""+btn3.getText());
+                    StrToConcat=StrToConcat + btn3.getText();
+
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn3.getText());
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn4Click){
+
+                    // displayText.setText(displayText.getText()+""+btn4.getText());
+                    StrToConcat=StrToConcat + btn4.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn4.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn5Click){
+
+                    // displayText.setText(displayText.getText()+""+btn5.getText());
+                    StrToConcat=StrToConcat + btn5.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn5.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn6Click){
+
+                    //displayText.setText(displayText.getText()+""+btn6.getText());
+                    StrToConcat=StrToConcat + btn6.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn6.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn7Click){
+
+                    // displayText.setText(displayText.getText()+""+btn7.getText());
+                    StrToConcat=StrToConcat + btn7.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn7.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn8Click){
+
+                    // displayText.setText(displayText.getText()+""+btn8.getText());
+                    StrToConcat=StrToConcat + btn8.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn8.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn9Click){
+
+                    //  displayText.setText(displayText.getText()+""+btn9.getText());
+                    StrToConcat=StrToConcat + btn9.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn9.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!btn0Click){
+
+                    //  displayText.setText(displayText.getText()+""+btn0.getText());
+                    StrToConcat=StrToConcat + btn0.getText();
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21(StrToConcat);
+                        }
+                        else{
+                            ttsUnder20(StrToConcat);
+                        }}
+                    formulaText.setText(formulaText.getText()+""+btn0.getText());
+                    mdasClickfalse();
+                    setTrueBtnTrigonometry();
+                }
+
+
+            }
+
+
+
+
+
+        });
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String word = formulaText.getText().toString();
+                String last3Word;
+
+                if (word.length() <= 1) {
+                    last3Word = word;
+                } else{
+                    last3Word = word.substring(word.length() - 1);
+                }
+
+                if(last3Word.contains("x")||last3Word.contains("÷")||last3Word.contains("-")||last3Word.contains("+")){
+                    if(isPlay) {
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
+                            ttsGreater21("plus");
+                        }
+                        else{
+                            ttsUnder20("plus");
+                        }}
+                    String deleteOperator=deleteLastChar((String) formulaText.getText());
+
+                    formulaText.setText(String.format("%s%s", deleteOperator, btnPlus.getText()));
                     setFalseBtnTrigonometry();
+                    setfalseButton();
+                    podNegClick = true;
+                    // displayText.setText("");
+                    StrToConcat="";
+
                 }
-            });
-
-
-            btn3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn3Click){
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-
-                        displayText.setText(displayText.getText()+""+btn3.getText());
+                else{
+                    if(!formulaText.getText().equals("")){
                         if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn3.getText());
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn4Click){
-
-                        displayText.setText(displayText.getText()+""+btn4.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn4.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn5Click){
-
-                        displayText.setText(displayText.getText()+""+btn5.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn5.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn6.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn6Click){
-
-                        displayText.setText(displayText.getText()+""+btn6.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn6.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn7.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn7Click){
-
-                        displayText.setText(displayText.getText()+""+btn7.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn7.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn8.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn8Click){
-
-                        displayText.setText(displayText.getText()+""+btn8.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn8.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn9.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn9Click){
-
-                        displayText.setText(displayText.getText()+""+btn9.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn9.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-
-            btn0.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(!btn0Click){
-
-                        displayText.setText(displayText.getText()+""+btn0.getText());
-                        if(isPlay) {
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                            ttsGreater21(displayText.getText().toString());
-                        }
-                        else{
-                            ttsUnder20(displayText.getText().toString());
-                        }}
-                        formulaText.setText(formulaText.getText()+""+btn0.getText());
-                        mdasClickfalse();
-                        setTrueBtnTrigonometry();
-                    }
-
-
-                }
-
-
-
-
-
-            });
-            btnPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String word = formulaText.getText().toString();
-                    String last3Word;
-
-                    if (word.length() <= 1) {
-                        last3Word = word;
-                    } else{
-                        last3Word = word.substring(word.length() - 1);
-                    }
-
-                        if(last3Word.contains("x")||last3Word.contains("/")||last3Word.contains("-")||last3Word.contains("+")){
-                            if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("plus");
@@ -1041,52 +1105,34 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("plus");
                             }}
-                            String deleteOperator=deleteLastChar((String) formulaText.getText());
+                        formulaText.setText(formulaText.getText()+""+btnPlus.getText());
 
-                            formulaText.setText(deleteOperator+btnPlus.getText());
-                            setFalseBtnTrigonometry();
-                            setfalseButton();
-                            podNegClick = true;
-                            displayText.setText("");
-
-                        }
-                    else{
-                            if(!formulaText.getText().equals("")){
-                                if(isPlay) {
-                                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                                    ttsGreater21("plus");
-                                }
-                                else{
-                                    ttsUnder20("plus");
-                                }}
-                                formulaText.setText(formulaText.getText()+""+btnPlus.getText());
-
-                                setFalseBtnTrigonometry();
-                                setfalseButton();
-                                podNegClick = true;
-                                displayText.setText("");
-                            }
-
-                        }
-                }
-            });
-
-            btnMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String word = formulaText.getText().toString();
-                    String last3Word;
-
-                    if (word.length() <= 1) {
-                        last3Word = word;
-                    } else{
-                        last3Word = word.substring(word.length() - 1);
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        StrToConcat="";
+                        // displayText.setText("");
                     }
 
-                    if(last3Word.contains("x")||last3Word.contains("/")||last3Word.contains("-")||last3Word.contains("+")){
-                        if(isPlay) {
+                }
+            }
+        });
+
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String word = formulaText.getText().toString();
+                String last3Word;
+
+                if (word.length() <= 1) {
+                    last3Word = word;
+                } else{
+                    last3Word = word.substring(word.length() - 1);
+                }
+
+                if(last3Word.contains("x")||last3Word.contains("÷")||last3Word.contains("-")||last3Word.contains("+")){
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("minus");
@@ -1094,18 +1140,18 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                         else{
                             ttsUnder20("minus");
                         }}
-                        String deleteOperator=deleteLastChar((String) formulaText.getText());
+                    String deleteOperator=deleteLastChar((String) formulaText.getText());
 
-                        formulaText.setText(deleteOperator+btnMinus.getText());
-                        setFalseBtnTrigonometry();
-                        setfalseButton();
-                        podNegClick = true;
-                        displayText.setText("");
-
-                    }
-                    else{
-                        if(!formulaText.getText().equals("")){
-                            if(isPlay) {
+                    formulaText.setText(String.format("%s%s", deleteOperator, btnMinus.getText()));
+                    setFalseBtnTrigonometry();
+                    setfalseButton();
+                    podNegClick = true;
+                    // displayText.setText("");
+                    StrToConcat="";
+                }
+                else{
+                    if(!formulaText.getText().equals("")){
+                        if(isPlay) {
 
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
@@ -1115,33 +1161,34 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                                 ttsUnder20("minus");
                             }}
 
-                            formulaText.setText(formulaText.getText()+""+btnMinus.getText());
+                        formulaText.setText(formulaText.getText()+""+btnMinus.getText());
 
-                            setFalseBtnTrigonometry();
-                            setfalseButton();
-                            podNegClick = true;
-                            displayText.setText("");
-                        }
-
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        // displayText.setText("");
+                        StrToConcat="";
                     }
+
                 }
-            });
+            }
+        });
 
-            btnDivide.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    String word = formulaText.getText().toString();
-                    String last3Word;
+                String word = formulaText.getText().toString();
+                String last3Word;
 
-                    if (word.length() <= 1) {
-                        last3Word = word;
-                    } else{
-                        last3Word = word.substring(word.length() - 1);
-                    }
+                if (word.length() <= 1) {
+                    last3Word = word;
+                } else{
+                    last3Word = word.substring(word.length() - 1);
+                }
 
-                    if(last3Word.contains("x")||last3Word.contains("/")||last3Word.contains("-")||last3Word.contains("+")){
-                        if(isPlay) {
+                if(last3Word.contains("x")||last3Word.contains("÷")||last3Word.contains("-")||last3Word.contains("+")){
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("divided by");
@@ -1150,18 +1197,19 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             ttsUnder20("divided by");
                         }}
 
-                        String deleteOperator=deleteLastChar((String) formulaText.getText());
+                    String deleteOperator=deleteLastChar((String) formulaText.getText());
 
-                        formulaText.setText(deleteOperator+btnDivide.getText());
-                        setFalseBtnTrigonometry();
-                        setfalseButton();
-                        podNegClick = true;
-                        displayText.setText("");
+                    formulaText.setText(String.format("%s%s", deleteOperator, btnDivide.getText()));
+                    setFalseBtnTrigonometry();
+                    setfalseButton();
+                    podNegClick = true;
+                    //  displayText.setText("");
+                    StrToConcat="";
 
-                    }
-                    else{
-                        if(!formulaText.getText().equals("")){
-                            if(isPlay) {
+                }
+                else{
+                    if(!formulaText.getText().equals("")){
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("divided by");
@@ -1170,33 +1218,34 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                                 ttsUnder20("divided by");
                             }}
 
-                            formulaText.setText(formulaText.getText()+""+btnDivide.getText());
+                        formulaText.setText(formulaText.getText()+""+btnDivide.getText());
 
-                            setFalseBtnTrigonometry();
-                            setfalseButton();
-                            podNegClick = true;
-                            displayText.setText("");
-                        }
-
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        // displayText.setText("");
+                        StrToConcat="";
                     }
+
                 }
-            });
+            }
+        });
 
-            btnMultiply.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btnMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    String word = formulaText.getText().toString();
-                    String last3Word;
+                String word = formulaText.getText().toString();
+                String last3Word;
 
-                    if (word.length() <= 1) {
-                        last3Word = word;
-                    } else{
-                        last3Word = word.substring(word.length() - 1);
-                    }
+                if (word.length() <= 1) {
+                    last3Word = word;
+                } else{
+                    last3Word = word.substring(word.length() - 1);
+                }
 
-                    if(last3Word.contains("x")||last3Word.contains("/")||last3Word.contains("-")||last3Word.contains("+")){
-                        if(isPlay) {
+                if(last3Word.contains("x")||last3Word.contains("÷")||last3Word.contains("-")||last3Word.contains("+")){
+                    if(isPlay) {
                         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                             ttsGreater21("times");
@@ -1204,18 +1253,19 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                         else{
                             ttsUnder20("times");
                         }}
-                        String deleteOperator=deleteLastChar((String) formulaText.getText());
+                    String deleteOperator=deleteLastChar((String) formulaText.getText());
 
-                        formulaText.setText(deleteOperator+btnMultiply.getText());
-                        setFalseBtnTrigonometry();
-                        setfalseButton();
-                        podNegClick = true;
-                        displayText.setText("");
+                    formulaText.setText(String.format("%s%s", deleteOperator, btnMultiply.getText()));
+                    setFalseBtnTrigonometry();
+                    setfalseButton();
+                    podNegClick = true;
+                    // displayText.setText("");
+                    StrToConcat="";
 
-                    }
-                    else{
-                        if(!formulaText.getText().equals("")){
-                            if(isPlay) {
+                }
+                else{
+                    if(!formulaText.getText().equals("")){
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("times");
@@ -1223,29 +1273,31 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             else{
                                 ttsUnder20("times");
                             }}
-                            formulaText.setText(formulaText.getText()+""+btnMultiply.getText());
+                        formulaText.setText(formulaText.getText()+""+btnMultiply.getText());
 
-                            setFalseBtnTrigonometry();
-                            setfalseButton();
-                            podNegClick = true;
-                            displayText.setText("");
-                        }
-
+                        setFalseBtnTrigonometry();
+                        setfalseButton();
+                        podNegClick = true;
+                        // displayText.setText("");
+                        StrToConcat="";
                     }
 
                 }
-            });
+
+            }
+        });
 
 
-            btnPosNeg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                    plusminus=(Double.parseDouble(String.valueOf(displayText.getText())));
+        btnPosNeg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    plusminus=(Double.parseDouble(String.valueOf(StrToConcat)));
                     if(!podNegClick){
                         plusminus=plusminus*(-1);
-                        displayText.setText(String.valueOf(plusminus));
-                        formulaText.setText(displayText.getText());
+                        // displayText.setText(String.valueOf(plusminus));
+                        StrToConcat=String.valueOf(plusminus);
+                        formulaText.setText(StrToConcat);
 
                     }// TODO add your handling code here:
                 }
@@ -1254,34 +1306,34 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                     Toast.makeText(MainActivity.this,"input number first",Toast.LENGTH_SHORT).show();
                 }
 
-                }
+            }
 
-            });
+        });
 
-            btnEquals.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btnEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
                 if(formulaText.getText().length()>0){
-                        setTrueButton();
-                        mdasClickfalse();
+                    setTrueButton();
+                    mdasClickfalse();
 
-                        podNegClick = false;
-                        try {
+                    podNegClick = false;
+                    try {
 
-                            double answer = eval(String.valueOf(formulaText.getText()));
-
-
-                            double roundAnswer = Math.round(answer * 1000.0) / 1000.0;
+                        double answer = eval(String.valueOf(formulaText.getText()));
 
 
-                            DecimalFormat df = new DecimalFormat("###.##");
+                        double roundAnswer = Math.round(answer * 1000.0) / 1000.0;
 
 
-                            displayText.setText(df.format(roundAnswer));
+                        DecimalFormat df = new DecimalFormat("###.##");
 
-                            formulaText.setText(displayText.getText());
-                            if(isPlay) {
+
+                        StrToConcat=(df.format(roundAnswer));
+
+                        formulaText.setText(StrToConcat);
+                        if(isPlay) {
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                 ttsGreater21("equals "+formulaText.getText());
@@ -1291,22 +1343,23 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                             }}
 
 
-                        } catch (Exception e) {
-                            formulaText.setText("");
-                            displayText.setText("");
-                            setFalseBtnTrigonometry();
-                            mdasClickTrue();
-                            setfalseButton();
-                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+                    } catch (Exception e) {
+                        formulaText.setText("");
+                        // displayText.setText("");
+                        StrToConcat="";
+                        setFalseBtnTrigonometry();
+                        mdasClickTrue();
+                        setfalseButton();
+                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                                ttsGreater21("syntax error");
-                            }
-                            else{
-                                ttsUnder20("syntax error");
-                            }
+                            ttsGreater21("syntax error");
+                        }
+                        else{
+                            ttsUnder20("syntax error");
+                        }
 
-                            Toast.makeText(MainActivity.this, "Syntax Error",
-                                    Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Syntax Error",
+                                Toast.LENGTH_SHORT).show();
 
 
 
@@ -1325,53 +1378,54 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                     }
                 }
 
-                }
-            });
+            }
+        });
 
 
 
-            btnsqrt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!btnSqrtClick) {
+        btnsqrt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!btnSqrtClick) {
 
 
-                        try {
-                            setfalseButton();
-                            podNegClick = true;
+                    try {
+                        setfalseButton();
+                        podNegClick = true;
 
-                            if (formulaText.getText().equals("")) {
-                                formulaText.setText(displayText.getText() + "" +"sqrt"+"(");
-                                if(isPlay) {
+                        if (formulaText.getText().equals("")) {
+                            formulaText.setText(StrToConcat + "" +"√"+"");
+                            if(isPlay) {
                                 if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
-                                    ttsGreater21("squareroot of"+displayText.getText());
+                                    ttsGreater21("squareroot of"+StrToConcat);
                                 }
                                 else{
-                                    ttsUnder20("squareroot of"+displayText.getText());
+                                    ttsUnder20("squareroot of"+StrToConcat);
                                 }}
 
-                            } else {
-                                formulaText.setText(formulaText.getText() + "" +"sqrt"+"(");
-                                if(isPlay) {
+                        } else {
+                            formulaText.setText(formulaText.getText() + "" +"√"+"");
+                            if(isPlay) {
                                 if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
 
                                     ttsGreater21("squareroot of");
                                 }
-                             else{
-                                  ttsUnder20("squareroot of");
+                                else{
+                                    ttsUnder20("squareroot of");
                                 }}
-                            }
-                        } catch (Exception e) {
-
-
                         }
+                    } catch (Exception e) {
+
+
                     }
                 }
-            });
-        }
+            }
+        });
 
-};
+    }
+
+
 
 
 
@@ -1414,7 +1468,7 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 double x = parseFactor();
                 for (; ; ) {
                     if (eat('x')) x *= parseFactor(); // multiplication
-                    else if (eat('/')) x /= parseFactor(); // division
+                    else if (eat('÷')) x /= parseFactor(); // division
                     else return x;
                 }
             }
@@ -1431,14 +1485,14 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                 } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
                     while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
                     x = Double.parseDouble(str.substring(startPos, this.pos));
-                } else if (ch >= 'a' && ch <= 'z') { // functions
-                    while (ch >= 'a' && ch <= 'z') nextChar();
+                } else if (ch >= 'a' && ch <= 'z'|| ch=='√') { // functions
+                    while (ch >= 'a' && ch <= 'z'||ch=='√') nextChar();
                     String func = str.substring(startPos, this.pos);
 
                     Square square = new Square();
                     x = parseFactor();
                     switch (func) {
-                        case "sqrt":
+                        case "√":
                             x = Math.sqrt(x);
                             break;
                         case "sin":
@@ -1466,10 +1520,9 @@ btnMod.setOnClickListener(new View.OnClickListener() {
                     throw new RuntimeException("Unexpected: " + (char) ch);
                 }
                 Modulus modulus = new Modulus();
-                FactorialExample2 factorialExample2 = new FactorialExample2();
+                Factorial factorialExample2 = new Factorial();
                 if (eat('!')) x = factorialExample2.factorial(x);
                 if (eat('^')) x = Math.pow(x, parseFactor());
-
                 if (eat('%')) x = modulus.Modulus(x, parseFactor());
                 // exponentiation
                 return x;
@@ -1666,7 +1719,7 @@ public static class Modulus{
     }
 
 }
-    public static class FactorialExample2{
+    public static class Factorial{
         public double factorial(double n){
             if (n == 0)
                 return 1;
@@ -1675,6 +1728,75 @@ public static class Modulus{
         }
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        setFalseBtnTrigonometry();
+        mdasClickfalse();
+        setfalseButton();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("btn1Click",btn1Click);
+        outState.putBoolean("btn0Click",btn0Click);
+        outState.putBoolean("btn2Click",btn2Click);
+        outState.putBoolean("btn3Click",btn3Click);
+        outState.putBoolean("btn4Click",btn4Click);
+        outState.putBoolean("btn5Click",btn5Click);
+        outState.putBoolean("btn6Click",btn6Click);
+        outState.putBoolean("btn7Click",btn7Click);
+        outState.putBoolean("btn8Click",btn8Click);
+        outState.putBoolean("btn9Click",btn9Click);
+        outState.putBoolean("btnPointClick",btnPointClick);
+        outState.putBoolean("podNegClick",podNegClick);
+        outState.putBoolean("btnSqrtClick",btnSinClick);
+        outState.putBoolean("btnTanClick",btnTanClick);
+        outState.putBoolean("btnCosClick",btnCosClick);
+        outState.putBoolean("btnSinClick",btnSinClick);
+        outState.putBoolean("btnPowerClick",btnPowerClick);
+        outState.putBoolean(" btnOpenClick",btnOpenClick);
+        outState.putBoolean("btnCloseClick",btnCloseClick);
+        outState.putBoolean("btnPlusClick",btnPlusClick);
+        outState.putBoolean(" btnMinusClick",btnMinusClick);
+        outState.putBoolean("btnMultiplyClick",btnMultiplyClick);
+        outState.putBoolean("btnDivideClick",btnDivideClick);
+        outState.putString("Display",formulaText.getText().toString());
+        Toast.makeText(this,"test1",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        btn1Click =savedInstanceState.getBoolean("btn1Click");
+        btn2Click = savedInstanceState.getBoolean("btn2Click");
+        btn3Click = savedInstanceState.getBoolean("btn3Click");
+        btn4Click = savedInstanceState.getBoolean("btn4Click");
+        btn5Click = savedInstanceState.getBoolean("btn5Click");
+        btn6Click = savedInstanceState.getBoolean("btn6Click");
+        btn7Click = savedInstanceState.getBoolean("btn7Click");
+        btn8Click = savedInstanceState.getBoolean("btn8Click");
+        btn9Click = savedInstanceState.getBoolean("btn9Click");
+        btn0Click = savedInstanceState.getBoolean("btn0Click");
+        btnPointClick = savedInstanceState.getBoolean("btnPointClick");
+        podNegClick = savedInstanceState.getBoolean("podNegClick");
+        btnSqrtClick =savedInstanceState.getBoolean(" btnSqrtClick");
+        btnTanClick = savedInstanceState.getBoolean("btnTanClick");
+        btnCosClick = savedInstanceState.getBoolean(" btnCosClick");
+        btnSinClick = savedInstanceState.getBoolean(" btnSinClick");
+        btnPowerClick = savedInstanceState.getBoolean("btnPowerClick");
+        btnOpenClick = savedInstanceState.getBoolean("btnOpenClick");
+        btnCloseClick = savedInstanceState.getBoolean(" btnCloseClick");
+        btnPlusClick = savedInstanceState.getBoolean("btnPlusClick");
+        btnMinusClick = savedInstanceState.getBoolean(" btnMinusClick");
+        btnMultiplyClick = savedInstanceState.getBoolean("btnMultiplyClick");
+        btnDivideClick = savedInstanceState.getBoolean(" btnDivideClick ");
+        formulaText.setText(savedInstanceState.getString("Display"));
+        Toast.makeText(this,"test",Toast.LENGTH_SHORT).show();
+    }
+
 
 }
 
