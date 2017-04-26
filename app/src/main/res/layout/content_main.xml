@@ -22,8 +22,8 @@
         <TextView
             android:fontFamily="sans-serif-condensed"
             android:textSize="40sp"
-            android:padding="10dp"
-            
+            android:paddingTop="60dp"
+            android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -34,11 +34,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" tools:targetApi="jelly_bean"/>
-    
-    
-    
-    
-    
     
         <LinearLayout
         android:id="@+id/rowSinCos"
@@ -52,7 +47,6 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:textSize="@dimen/text_sizeOther"
             android:textColor="@color/ColorGray"
-
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:layout_width="0dp"
