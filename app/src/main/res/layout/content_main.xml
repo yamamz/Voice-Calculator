@@ -54,7 +54,7 @@
             android:text="@string/mod"
             android:id="@+id/btnMod"
             />
-        <Button
+            <Button
             android:background="@drawable/ripple_trigo"
             style="@style/Widget.AppCompat.Button.Colored"
             android:textSize="@dimen/text_sizeOther"
@@ -454,7 +454,6 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-
             android:layout_margin="0dp"
             android:layout_weight="2"
             android:layout_width="0dp"
@@ -499,7 +498,6 @@
         <Button
             android:textSize="@dimen/text_size"
             android:textColor="@color/white"
-
             android:layout_margin="0dp"
             android:layout_weight="1.2"
             android:layout_width="0dp"
@@ -526,12 +524,12 @@
 
                 android:gravity="center"
                 android:background="@drawable/ripple_effects"
-                android:textSize="@dimen/Equals"
+                 android:textSize="@dimen/text_size"
                 android:textColor="@color/white"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_margin="0dp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/answer"
@@ -547,36 +545,55 @@
             android:textColor="@color/white"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_margin="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_width="0dp"
-                android:layout_height="match_parent"
-
+            android:layout_height="match_parent"
             android:text="Delete"
             android:id="@+id/btnDelete"
-            
+            />
+        <Button
+            android:background="@drawable/ripple_effects"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+
+            android:layout_margin="0dp"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:text="C"
+            android:id="@+id/bntCancel"
+
+            android:padding="@dimen/textPadding"
+
+
             />
 
-
-
-
-
-
-
-
-
+        <Button
+            android:paddingRight="20dp"
+            android:background="@drawable/ripple_effects"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_margin="0dp"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="%"
+            android:id="@+id/btnPercent"
+            android:padding="@dimen/textPadding"
+            />
     </LinearLayout>
 
     <LinearLayout
             android:id="@+id/row9"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="0dp">
-        
-        
-        
+
         <android.support.v7.widget.SwitchCompat
                 android:gravity="center|start"
                 android:background="@drawable/ripple_effects"
@@ -584,7 +601,7 @@
                 android:textColor="@color/white"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_margin="0dp"
-android:layout_weight="1"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textOn="on"
@@ -595,24 +612,7 @@ android:layout_weight="1"
                 android:id="@+id/toggleButton"/>
     
     
-        <Button
-                android:background="@drawable/ripple_effects"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:textSize="@dimen/Equals"
-                android:textColor="@color/white"
-            
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                
-                android:text="clear"
-                android:id="@+id/bntCancel"
-                android:gravity="center|end"
-                android:paddingRight="20dp"
-    
-    
-        />
+
     
     
     </LinearLayout>
