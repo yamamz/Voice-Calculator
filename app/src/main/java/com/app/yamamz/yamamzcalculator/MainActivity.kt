@@ -16,7 +16,6 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.TextView
@@ -76,6 +75,14 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+
+
+
+
+
+
+
+
 
 
 
@@ -281,7 +288,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             if (formulaText!!.text != "") {
                 formulaText!!.append(" m ")
                 StrToConcat = ""
-                // displayText.setText("");
+
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -297,14 +304,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
         btnPI!!.setOnClickListener {
             isBtnEqualClick = false
-            val PI: Double
-            PI = Math.PI
-
-
-
-
-
-
+            val PI: Double = Math.PI
 
             formulaText!!.append(PI.toString())
             if (isPlay) {
@@ -384,8 +384,6 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             podNegClick = true
 
             try {
-
-
                 if (formulaText!!.text == "") {
                     formulaText!!.text = StrToConcat.plus(btnFact!!.text)
                     if (isPlay) {
@@ -445,7 +443,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                     }
                 }
             } catch (e: Exception) {
-                //This catch block catches all the exceptions
+
             }
             btnPointClick = false
         }
@@ -482,10 +480,11 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
 
                 podNegClick = true
+                val lastCharPattern: String=getLastcharPattern(lastChar)
 
                 if (formulaText!!.length() > 0) {
 
-                    if (lastChar.contains("x") || lastChar.contains("+") || lastChar.contains("÷") || lastChar.contains("-")) {
+                    if (lastCharPattern=="operator") {
                         formulaText!!.append(btnSin!!.text.toString() + "(")
                         if (isPlay) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -509,7 +508,9 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                         }
 
                         isBtnEqualClick = false
-                    } else if (lastChar.contains("1") || lastChar.contains("2") || lastChar.contains("3") || lastChar.contains("4") || lastChar.contains("5") || lastChar.contains("6") || lastChar.contains("7") || lastChar.contains("8") || lastChar.contains("9") || lastChar.contains("0") || lastChar.contains(")")) {
+
+
+                    } else if (lastCharPattern=="number") {
                         formulaText!!.text = formulaText!!.text.toString().plus("x").plus(btnSin!!.text).plus("(")
                         val str = formulaText!!.text.toString()
                         var l = formulaText!!.length() - 1
@@ -541,7 +542,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             } catch (e: Exception) {
                 //This catch block catches all the exceptions
             }
-            // TODO add your handling code here:
+
 
 
             if (formulaText!!.length() <= 0) {
@@ -571,9 +572,9 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
                 podNegClick = true
 
-
+val lastCharPattern: String=getLastcharPattern(lastChar)
                 if (formulaText!!.length() > 0) {
-                    if (lastChar.contains("x") || lastChar.contains("+") || lastChar.contains("÷") || lastChar.contains("-")) {
+                    if (lastCharPattern=="operator") {
                         formulaText!!.append(btnCos!!.text.toString() + "(")
                         if (isPlay) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -584,7 +585,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                             }
                         }
                         isBtnEqualClick = false
-                    } else if (lastChar.contains("1") || lastChar.contains("2") || lastChar.contains("3") || lastChar.contains("4") || lastChar.contains("5") || lastChar.contains("6") || lastChar.contains("7") || lastChar.contains("8") || lastChar.contains("9") || lastChar.contains("0") || lastChar.contains(")")) {
+                    } else if (lastCharPattern=="number") {
                         formulaText!!.setText(formulaText!!.text.toString().plus("x").plus(btnCos!!.text).plus("("), TextView.BufferType.SPANNABLE)
                         val str = formulaText!!.text.toString()
                         var l = formulaText!!.length() - 1
@@ -615,9 +616,9 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
                 }
             } catch (e: Exception) {
-                //This catch block catches all the exceptions
+
             }
-            // TODO add your handling code here:
+
 
             if (formulaText!!.length() <= 0) {
                 formulaText!!.text = formulaText!!.text.toString().plus(btnCos!!.text).plus("(")
@@ -645,10 +646,10 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                     lastChar = word.substring(word.length - 1)
                 }
 
-
+val lastCharPattern: String=getLastcharPattern(lastChar)
                 podNegClick = true
                 if (formulaText!!.length() > 0) {
-                    if (lastChar.contains("x") || lastChar.contains("+") || lastChar.contains("÷") || lastChar.contains("-")) {
+                    if (lastCharPattern=="operator") {
                         formulaText!!.append(btnTan!!.text.toString() + "(")
                         if (isPlay) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -658,7 +659,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                             }
                         }
                         isBtnEqualClick = false
-                    } else if (lastChar.contains("1") || lastChar.contains("2") || lastChar.contains("3") || lastChar.contains("4") || lastChar.contains("5") || lastChar.contains("6") || lastChar.contains("7") || lastChar.contains("8") || lastChar.contains("9") || lastChar.contains("0") || lastChar.contains(")")) {
+
+                    } else if (lastCharPattern=="number") {
                         formulaText!!.setText(formulaText!!.text.toString().plus("x").plus(btnTan!!.text).plus("("), TextView.BufferType.SPANNABLE)
 
                         val str = formulaText!!.text.toString()
@@ -718,7 +720,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             try {
 
 
-                if (last3Word.contains("1") || last3Word.contains("2") || last3Word.contains("3") || last3Word.contains("4") || last3Word.contains("5") || last3Word.contains("6") || last3Word.contains("7") || last3Word.contains("8") || last3Word.contains("9") || last3Word.contains("0") || last3Word.contains(")")) {
+                val lastCharPattern: String=getLastcharPattern(last3Word)
+                if (lastCharPattern=="number") {
                     formulaText!!.append(btnPercent!!.text)
                     StrToConcat = ""
                     isBtnEqualClick = false
@@ -749,8 +752,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
             try {
 
-
-                if (last3Word.contains("1") || last3Word.contains("2") || last3Word.contains("3") || last3Word.contains("4") || last3Word.contains("5") || last3Word.contains("6") || last3Word.contains("7") || last3Word.contains("8") || last3Word.contains("9") || last3Word.contains("0") || last3Word.contains(")")) {
+val lastCharPattern: String=getLastcharPattern(last3Word)
+                if (lastCharPattern=="number") {
                     formulaText!!.append(btnPower!!.text)
                     StrToConcat = ""
                     isBtnEqualClick = false
@@ -767,7 +770,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             btnPointClick = false
         }
         btn1!!.setOnClickListener {
-            //  displayText.setText(displayText.getText()+""+btn1.getText());
+
             StrToConcat = StrToConcat + btn1!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -787,7 +790,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn2!!.setOnClickListener {
-            //  displayText.setText(displayText.getText()+""+btn2.getText());
+
             StrToConcat = StrToConcat + btn2!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -838,12 +841,12 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                     formulaText!!.text = formulaText!!.text.toString().plus(btnPoint!!.text)
                     btnPointClick = true
                 }
-            }                 // TODO add your handling code here:
+            }
         }
 
         btnCancel!!.setOnClickListener {
 
-            // displayText.setText("");
+
             StrToConcat = ""
             formulaText!!.text = ""
             if (isPlay) {
@@ -865,7 +868,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         btn3!!.setOnClickListener {
 
 
-            //displayText.setText(displayText.getText()+""+btn3.getText());
+
             StrToConcat = StrToConcat + btn3!!.text
 
             if (isPlay && StrLim <= 15) {
@@ -885,7 +888,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn4!!.setOnClickListener {
-            // displayText.setText(displayText.getText()+""+btn4.getText());
+
             StrToConcat = StrToConcat + btn4!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -906,7 +909,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn5!!.setOnClickListener {
-            // displayText.setText(displayText.getText()+""+btn5.getText());
+
             StrToConcat = StrToConcat + btn5!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -927,7 +930,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn6!!.setOnClickListener {
-            //displayText.setText(displayText.getText()+""+btn6.getText());
+
             StrToConcat = StrToConcat + btn6!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -947,7 +950,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn7!!.setOnClickListener {
-            // displayText.setText(displayText.getText()+""+btn7.getText());
+
             StrToConcat = StrToConcat + btn7!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -967,7 +970,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn8!!.setOnClickListener {
-            // displayText.setText(displayText.getText()+""+btn8.getText());
+
             StrToConcat = StrToConcat + btn8!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -987,7 +990,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn9!!.setOnClickListener {
-            //  displayText.setText(displayText.getText()+""+btn9.getText());
+
             StrToConcat = StrToConcat + btn9!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1007,7 +1010,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         }
 
         btn0!!.setOnClickListener {
-            //  displayText.setText(displayText.getText()+""+btn0.getText());
+
             if (formulaText!!.text == "0" || formulaText!!.text == "" || isBtnEqualClick) {
                 StrToConcat = ""
                 formulaText!!.text = btn0!!.text
@@ -1036,7 +1039,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                 last3Word = word.substring(word.length - 1)
             }
 
-            if (last3Word.contains("x") || last3Word.contains("÷") || last3Word.contains("-") || last3Word.contains("+")) {
+            val lastCharPattern: String=getLastcharPattern(last3Word)
+            if (lastCharPattern=="operator") {
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -1188,8 +1192,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             } else {
                 last3Word = word.substring(word.length - 1)
             }
-
-            if (last3Word.contains("x") || last3Word.contains("÷") || last3Word.contains("-") || last3Word.contains("+")) {
+            val lastWordPattern:String=getLastcharPattern(last3Word)
+            if (lastWordPattern == "operator") {
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -1263,8 +1267,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             } else {
                 last3Word = word.substring(word.length - 1)
             }
-
-            if (last3Word.contains("x") || last3Word.contains("÷") || last3Word.contains("-") || last3Word.contains("+")) {
+            val lastWordPattern:String=getLastcharPattern(last3Word)
+            if (lastWordPattern == "operator"){
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -1314,7 +1318,6 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                         l--
                     }
 
-
                     podNegClick = true
                     isBtnEqualClick = false
                     StrToConcat = ""
@@ -1327,10 +1330,10 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
         btnPosNeg!!.setOnClickListener {
             try {
-                plusminus = java.lang.Double.parseDouble(StrToConcat.toString())
+                plusminus = java.lang.Double.parseDouble(StrToConcat)
                 if (!podNegClick) {
                     plusminus = plusminus * -1
-                    // displayText.setText(String.valueOf(plusminus));
+
                     StrToConcat = plusminus.toString()
                     formulaText!!.setText(StrToConcat, TextView.BufferType.SPANNABLE)
                     val str = formulaText!!.text.toString()
@@ -1346,7 +1349,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                     }
 
                     isBtnEqualClick = false
-                }// TODO add your handling code here:
+                }
             } catch (e: Exception) {
 
                 Toast.makeText(this@MainActivity, "input number first", Toast.LENGTH_SHORT).show()
@@ -1423,7 +1426,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                 podNegClick = true
 
                 if (formulaText!!.text == "") {
-                    formulaText!!.text = StrToConcat + "" + "√" + ""
+                    formulaText!!.text = StrToConcat.plus("√")
                     if (isPlay) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             ttsGreater21("squareroot of" + StrToConcat)
@@ -1491,15 +1494,25 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             builder.setTitle(getString(R.string.dialog_title))
             builder.setMessage(getString(R.string.dialog_message1))
             builder.setPositiveButton(positiveText) { _, _ ->
-                // positive button logic
+
             }
 
             val dialog = builder.create()
-            // display dialog
             dialog.show()
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    fun getLastcharPattern(lastChar: String): String{
+        var ret: String=""
+        when(lastChar){
+            "x","+","-","÷" -> ret="operator"
+           in "0".."9",")" -> ret= "number"
+            "sin(","cos(","tan(","mod(","log" -> ret="trigo"
+        }
+      return ret
     }
 
     fun deleteLastChar(str: String): String {
@@ -1511,8 +1524,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             } else {
                 last3Word = word.substring(word.length - 4)
             }
-
-            if (last3Word.contains("sin(") || last3Word.contains("cos(") || last3Word.contains("tan(") || last3Word.contains("mod(") || last3Word.contains("log(")) {
+val lastCharPattern: String=getLastcharPattern(last3Word)
+            if (lastCharPattern=="trigo") {
                 return str.substring(0, str.length - 4)
 
             } else {
@@ -1546,7 +1559,6 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
         outState.putBoolean("btnPointClick", btnPointClick)
         outState.putBoolean("podNegClick", podNegClick)
-
         outState.putString("Display", formulaText!!.text.toString())
 
     }
@@ -1555,7 +1567,6 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         super.onRestoreInstanceState(savedInstanceState)
 
         btnPointClick = savedInstanceState.getBoolean("btnPointClick")
-
         formulaText!!.text = savedInstanceState.getString("Display")
 
     }
@@ -1565,8 +1576,6 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
         private var btnPointClick = false
         private var podNegClick = false
-
-
         private var isPlay = true
 
 
@@ -1630,14 +1639,14 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                     if (eat('(')) { // parentheses
                         x = parseExpression()
                         eat(')')
-                    } else if (ch.toChar() >= '0' && ch.toChar() <= '9' || ch.toChar() == '.') { // numbers
-                        while (ch.toChar() >= '0' && ch.toChar() <= '9' || ch.toChar() == '.') nextChar()
+                    } else if (ch.toChar() in '0'..'9' || ch.toChar() == '.') { // numbers
+                        while (ch.toChar() in '0'..'9' || ch.toChar() == '.') nextChar()
                         x = java.lang.Double.parseDouble(str.substring(startPos, this.pos))
-                    } else if (ch.toChar() >= 'a' && ch.toChar() <= 'z' || ch.toChar() == '√') { // functions
-                        while (ch.toChar() >= 'a' && ch.toChar() <= 'z' || ch.toChar() == '√') nextChar()
+                    } else if (ch.toChar() in 'a'..'z' || ch.toChar() == '√') { // functions
+                        while (ch.toChar() in 'a'..'z' || ch.toChar() == '√') nextChar()
                         val func = str.substring(startPos, this.pos)
 
-                        val mathOp = mathOperation()
+
                         x = parseFactor()
                         when (func) {
                             "√" -> x = Math.sqrt(x)
@@ -1645,7 +1654,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                             "cos" -> x = Math.cos(Math.toRadians(x))
                             "tan" -> x = Math.tan(Math.toRadians(x))
                             "log" -> x = Math.log(x)
-                            "sqr" -> x = mathOp.Square(x)
+                            "sqr" -> x = x.square(x)
 
 
                         //
@@ -1654,20 +1663,21 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                     } else {
                         throw RuntimeException("Unexpected: " + ch.toChar())
                     }
-                    val mathOp = mathOperation()
-                    if (eat('!')) x = mathOp.factorial(x.toLong()).toDouble()
+
+                    if (eat('!')) x = factorial(x.toLong()).toDouble()
                     if (eat('^')) x = Math.pow(x, parseFactor())
-                    if (eat('%')) x = mathOp.Percent(x, parseFactor())
-                    if (eat('m')) x = mathOp.Modulus(x, parseFactor())
+                    if (eat('%')) x = parseFactor().percent(x)
+                    if (eat('m')) x = x.modulus(parseFactor())
+
+
                     return x
                 }
             }.parse()
         }
+    fun Double.percent(double:Double)=this.times(double).div(100)
+        fun Double.modulus(value:Double)=this.rem(value)
+        fun Double.square(value:Double)=this.times(value)
 
-        class mathOperation {
-            fun Square(x: Double) = x * x
-            fun Modulus(x: Double, y: Double) = x % y
-            fun Percent(x: Double, y: Double) = x / 100 * y
 
             fun factorial(n: Long): Long {
                 if (n == 0L)
@@ -1675,7 +1685,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                 else
                     return n * factorial(n - 1)
             }
-        }
+
 
     }
 
