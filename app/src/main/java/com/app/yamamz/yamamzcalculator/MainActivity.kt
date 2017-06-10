@@ -76,17 +76,6 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-
-
-
-
-
-
-
-
-
-
-
         t1 = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { status ->
             if (status != TextToSpeech.ERROR) {
                 t1!!.language = Locale.US
@@ -477,10 +466,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
                 } else {
                     lastChar = word.substring(word.length - 1)
                 }
-
-
                 podNegClick = true
-                val lastCharPattern: String=getLastcharPattern(lastChar)
+                val lastCharPattern: String=getLastCharPattern(lastChar)
 
                 if (formulaText!!.length() > 0) {
 
@@ -572,7 +559,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
                 podNegClick = true
 
-val lastCharPattern: String=getLastcharPattern(lastChar)
+val lastCharPattern: String=getLastCharPattern(lastChar)
                 if (formulaText!!.length() > 0) {
                     if (lastCharPattern=="operator") {
                         formulaText!!.append(btnCos!!.text.toString() + "(")
@@ -646,7 +633,7 @@ val lastCharPattern: String=getLastcharPattern(lastChar)
                     lastChar = word.substring(word.length - 1)
                 }
 
-val lastCharPattern: String=getLastcharPattern(lastChar)
+val lastCharPattern: String=getLastCharPattern(lastChar)
                 podNegClick = true
                 if (formulaText!!.length() > 0) {
                     if (lastCharPattern=="operator") {
@@ -690,7 +677,7 @@ val lastCharPattern: String=getLastcharPattern(lastChar)
             } catch (e: Exception) {
                 //This catch block catches all the exceptions
             }
-            // TODO add your handling code here:
+
             if (formulaText!!.length() <= 0) {
                 formulaText!!.text = formulaText!!.text.toString().plus(btnTan!!.text).plus("(")
                 if (isPlay) {
@@ -720,12 +707,12 @@ val lastCharPattern: String=getLastcharPattern(lastChar)
             try {
 
 
-                val lastCharPattern: String=getLastcharPattern(last3Word)
+                val lastCharPattern: String=getLastCharPattern(last3Word)
                 if (lastCharPattern=="number") {
                     formulaText!!.append(btnPercent!!.text)
                     StrToConcat = ""
                     isBtnEqualClick = false
-                    //displayText.setText("");
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                         ttsGreater21("Percent of")
@@ -752,7 +739,7 @@ val lastCharPattern: String=getLastcharPattern(lastChar)
 
             try {
 
-val lastCharPattern: String=getLastcharPattern(last3Word)
+val lastCharPattern: String=getLastCharPattern(last3Word)
                 if (lastCharPattern=="number") {
                     formulaText!!.append(btnPower!!.text)
                     StrToConcat = ""
@@ -765,13 +752,13 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                     }
                 }
             } catch (e: Exception) {
-                //This catch block catches all the exceptions
+
             }
             btnPointClick = false
         }
         btn1!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn1!!.text
+            StrToConcat += btn1!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -791,7 +778,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn2!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn2!!.text
+            StrToConcat += btn2!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -816,7 +803,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                 if (StrToConcat == "" && formulaText!!.length() <= 0) {
 
                     StrToConcat = "0" + btnPoint!!.text
-                    formulaText!!.setText(String.format("0%s", btnPoint!!.text))
+                    formulaText!!.text = String.format("0%s", btnPoint!!.text)
                     if (isPlay) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -828,8 +815,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                     btnPointClick = true
                 } else {
 
-                    // displayText.setText(displayText.getText() + "" + btnPoint.getText());
-                    StrToConcat = StrToConcat + btnPoint!!.text
+                    StrToConcat += btnPoint!!.text
                     if (isPlay) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -867,9 +853,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn3!!.setOnClickListener {
 
-
-
-            StrToConcat = StrToConcat + btn3!!.text
+            StrToConcat += btn3!!.text
 
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -889,7 +873,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn4!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn4!!.text
+            StrToConcat += btn4!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -910,7 +894,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn5!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn5!!.text
+            StrToConcat += btn5!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -931,7 +915,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn6!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn6!!.text
+            StrToConcat += btn6!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -951,7 +935,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn7!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn7!!.text
+            StrToConcat += btn7!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -971,7 +955,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn8!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn8!!.text
+            StrToConcat += btn8!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -991,7 +975,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
 
         btn9!!.setOnClickListener {
 
-            StrToConcat = StrToConcat + btn9!!.text
+            StrToConcat += btn9!!.text
             if (isPlay && StrLim <= 15) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -1016,7 +1000,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                 formulaText!!.text = btn0!!.text
                 isBtnEqualClick = false
             } else {
-                StrToConcat = StrToConcat + btn0!!.text
+                StrToConcat += btn0!!.text
                 formulaText!!.append(btn0!!.text)
 
             }
@@ -1039,7 +1023,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                 last3Word = word.substring(word.length - 1)
             }
 
-            val lastCharPattern: String=getLastcharPattern(last3Word)
+            val lastCharPattern: String=getLastCharPattern(last3Word)
             if (lastCharPattern=="operator") {
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1117,7 +1101,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                 last3Word = word.substring(word.length - 1)
             }
 
-            if (last3Word.contains("x") || last3Word.contains("÷") || last3Word.contains("-") || last3Word.contains("+")) {
+            if (getLastCharPattern(last3Word)=="operator") {
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -1192,7 +1176,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
             } else {
                 last3Word = word.substring(word.length - 1)
             }
-            val lastWordPattern:String=getLastcharPattern(last3Word)
+            val lastWordPattern:String=getLastCharPattern(last3Word)
             if (lastWordPattern == "operator") {
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1267,7 +1251,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
             } else {
                 last3Word = word.substring(word.length - 1)
             }
-            val lastWordPattern:String=getLastcharPattern(last3Word)
+            val lastWordPattern:String=getLastCharPattern(last3Word)
             if (lastWordPattern == "operator"){
                 if (isPlay) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1332,7 +1316,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
             try {
                 plusminus = java.lang.Double.parseDouble(StrToConcat)
                 if (!podNegClick) {
-                    plusminus = plusminus * -1
+                    plusminus *= -1
 
                     StrToConcat = plusminus.toString()
                     formulaText!!.setText(StrToConcat, TextView.BufferType.SPANNABLE)
@@ -1364,7 +1348,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                 try {
 
                     val answer = eval(formulaText!!.text.toString())
-                    val roundAnswer = Math.round(answer * 1000.0) / 1000.0
+                    val roundAnswer = Math.round(answer * 10000.0) / 10000.0
                     val df = DecimalFormat("###.####")
 
 
@@ -1466,7 +1450,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
         return true
     }
 
-
+    @Suppress
     private fun ttsUnder20(text: String) {
         val map = HashMap<String, String>()
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId")
@@ -1505,7 +1489,8 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
     }
 
 
-    fun getLastcharPattern(lastChar: String): String{
+    fun getLastCharPattern(lastChar: String): String{
+
         var ret: String=""
         when(lastChar){
             "x","+","-","÷" -> ret="operator"
@@ -1524,7 +1509,7 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
             } else {
                 last3Word = word.substring(word.length - 4)
             }
-val lastCharPattern: String=getLastcharPattern(last3Word)
+val lastCharPattern: String=getLastCharPattern(last3Word)
             if (lastCharPattern=="trigo") {
                 return str.substring(0, str.length - 4)
 
@@ -1656,8 +1641,6 @@ val lastCharPattern: String=getLastcharPattern(last3Word)
                             "log" -> x = Math.log(x)
                             "sqr" -> x = x.square(x)
 
-
-                        //
                             else -> throw RuntimeException("Unknown function: " + func)
                         }
                     } else {
